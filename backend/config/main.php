@@ -22,11 +22,24 @@ return [
         'blog' => [
             'class' => 'backend\modules\blog\blogModule',
         ],
+        'join' => [
+            'class' => 'backend\modules\join\joinModule',
+        ],
     ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+        ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+//            'enableStrictParsing' => true,
+            'suffix' => '.html',
+//             'rules' => [
+//                     '<controller:\w+>/<action:\w+>‘=>‘<controller>/<action>',
+//             ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

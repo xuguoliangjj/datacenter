@@ -13,21 +13,37 @@ return [
                     ['label' => '新增玩家', 'url' => ['/main/default']],
                     ['label' => '活跃玩家', 'url' => ['/product/index2']],
                 ]],
-                ['icon'=>'glyphicon glyphicon-tag','label' => '付费分析','items' => [
-                    ['label' => '新产品2', 'url' => ['/site/indsex']],
-                    ['label' => '流行产品2', 'url' => ['/product/index4']],
+                ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
+                    ['label' => '实时在线', 'url' => ['/site/indsex']],
+                    ['label' => '实时登录', 'url' => ['/product/index4']],
                 ]],
-                ['icon'=>'glyphicon glyphicon-folder-close','label' => '流失分析','items' => [
-                    ['label' => '新产品3', 'url' => ['/product/index5']],
-                    ['label' => '流行产品3', 'url' => ['/product/index6']],
+                ['icon'=>'glyphicon glyphicon-yen','label' => '付费分析','items' => [
+                    ['label' => '充值统计', 'url' => ['/site/indsex']],
+                    ['label' => '充值分布', 'url' => ['/product/index4']],
+                ]],
+                ['icon'=>'glyphicon glyphicon-random','label' => '流失分析','items' => [
+                    ['label' => '留存统计', 'url' => ['/product/index5']],
+                    ['label' => '等级流失', 'url' => ['/product/index6']],
+                ]],
+                ['icon'=>'glyphicon glyphicon-level-up','label' => '等级分析','items' => [
+                    ['label' => '等级分布', 'url' => ['/product/index5']],
+                    ['label' => '等级流失', 'url' => ['/product/index6']],
+                ]],
+                ['icon'=>'glyphicon glyphicon-tasks','label' => '任务分析','items' => [
+                    ['label' => '任务统计', 'url' => ['/product/index5']],
+                    ['label' => '任务流失', 'url' => ['/product/index6']],
+                ]],
+                ['icon'=>'glyphicon glyphicon-oil','label' => '消费分析','items' => [
+                    ['label' => '消费分布', 'url' => ['/product/index5']],
+                    ['label' => '消费统计', 'url' => ['/product/index6']],
                 ]],
             ]
         ],
-        'blog'=> ['label'=>'博客管理', 'items'=>[
-                ['icon'=>'glyphicon glyphicon-user','label' => '文章管理','items' => [
-                    ['label' => '文章列表', 'url' => ['/blog/article']],
-                    ['label' => '分类列表', 'url' => ['/blog/type']],
-                    ['label' => '标签列表', 'url' => ['/blog/tag']],
+        'join'=> ['label'=>'接入管理', 'items'=>[
+                ['icon'=>'glyphicon glyphicon-user','label' => '接入管理','items' => [
+                    ['label' => '公司接入', 'url' => ['/join/cp']],
+                    ['label' => '游戏接入', 'url' => ['/join/app']],
+                    ['label' => '渠道接入', 'url' => ['/join/channel']],
                 ]]
             ]
         ],
@@ -41,6 +57,5 @@ return [
                 ]]
             ]
         ]
-
     ]
 ];
