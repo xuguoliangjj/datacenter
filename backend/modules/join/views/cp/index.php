@@ -10,26 +10,30 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', '公司接入');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cp-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Cp'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+<?php \yii\widgets\Pjax::begin()?>
+<div class="panel panel-default own-panel">
+    <div class="panel-heading">
+        公司接入
+        <span class="pull-right own-toggle">
+        <a class="glyphicon glyphicon-chevron-up"></a>
+        </span>
+    </div>
+    <div class="panel-body">
+    <?= \xuguoliangjj\editorgridview\EditorGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary'=>'',
+        'buttons'=>[
+            Html::a('新增公司',['/join/cp/create'],['class'=>'btn btn-sm btn-primary'])
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'cp_name',
+            ['attribute'=>'cp_name','filter'=>true],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+     </div>
 </div>
+<?php \yii\widgets\Pjax::end()?>

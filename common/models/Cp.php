@@ -28,6 +28,7 @@ class Cp extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['cp_name'],'required'],
             [['cp_name'], 'string', 'max' => 125]
         ];
     }

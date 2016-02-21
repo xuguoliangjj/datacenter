@@ -26,4 +26,20 @@ $(function(){
             hand.removeClass("glyphicon glyphicon-chevron-down").addClass('glyphicon glyphicon-chevron-up');
     });
     hljs.initHighlightingOnLoad();
+    $.extend($.fn.dataTable.defaults, {
+        order:[],
+        searching:false,
+        info:false,
+        language: {
+            "sLengthMenu": "",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上一页",
+                "sNext": "下一页",
+                "sLast": "末页"
+            },
+        }
+    });
 });
+
+

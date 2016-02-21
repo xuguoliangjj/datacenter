@@ -10,27 +10,28 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', '渠道接入');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="channel-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Channel'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+<?php \yii\widgets\Pjax::begin()?>
+<div class="panel panel-default own-panel">
+    <div class="panel-heading">
+        <?= $this->title?>
+        <span class="pull-right own-toggle">
+        <a class="glyphicon glyphicon-chevron-up"></a>
+        </span>
+    </div>
+    <div class="panel-body">
+    <?= \xuguoliangjj\editorgridview\EditorGridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel'  => $searchModel,
+        'buttons'      => [
+            Html::a('新增渠道',['/join/channel/create'],['class'=>'btn btn-sm btn-primary'])
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'channel',
-            'app_id',
-
+            'id',
+            ['attribute'=>'channel','filter'=>true],
+            ['attribute'=>'app_id','filter'=>true],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+    </div>
 </div>
+<?php \yii\widgets\Pjax::end()?>

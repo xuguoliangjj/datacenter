@@ -9,7 +9,7 @@ $this->params['breadcrumbs'][] = $this->title;
             角色管理
             <span class="pull-right own-toggle">
             <a class="glyphicon glyphicon-chevron-up"></a>
-        </span>
+            </span>
         </div>
         <div class="panel-body">
             <?= \xuguoliangjj\editorgridview\EditorGridView::widget([

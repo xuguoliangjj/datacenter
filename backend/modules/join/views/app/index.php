@@ -10,28 +10,30 @@ use yii\grid\GridView;
 $this->title = Yii::t('app', '游戏接入');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="app-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create App'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+<?php \yii\widgets\Pjax::begin()?>
+<div class="panel panel-default own-panel">
+    <div class="panel-heading">
+        公司接入
+        <span class="pull-right own-toggle">
+        <a class="glyphicon glyphicon-chevron-up"></a>
+        </span>
+    </div>
+    <div class="panel-body">
+    <?= \xuguoliangjj\editorgridview\EditorGridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'filterModel'  => $searchModel,
+        'summary'      => '',
+        'buttons'=>[
+            Html::a('新增游戏',['/join/app/create'],['class'=>'btn btn-sm btn-primary'])
+        ],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'app_name',
+            ['attribute'=>'app_name','filter'=>true],
             'app_id',
             'app_secret',
             'app_code',
             // 'tbl_prefix',
-            // 'version',
+            'version',
             // 'created_at',
             // 'updated_at',
             // 'cp_id',
@@ -40,5 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+    </div>
 </div>
+<?php \yii\widgets\Pjax::end()?>

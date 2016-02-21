@@ -13,15 +13,14 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+        //系统设置模块
         'setting' => [
             'class' => 'backend\modules\setting\settingModule',
         ],
         'main' => [
             'class' => 'backend\modules\main\mainModule',
         ],
-        'blog' => [
-            'class' => 'backend\modules\blog\blogModule',
-        ],
+        //接入管理模块
         'join' => [
             'class' => 'backend\modules\join\joinModule',
         ],

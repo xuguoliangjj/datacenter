@@ -1,6 +1,5 @@
 <?php
 /* @var $this yii\web\View */
-\backend\assets\DatatableAsset::register($this);
 ?>
 <?php
 $this->registerJs('
