@@ -17,9 +17,10 @@ $(function(){
         if(highctart != undefined) {
             highctart.destroy();
         }
-        var id = "#" + hiftchart_id + "-tbl";
+        var id = "#" + hiftchart_id.split('-')[0] + "-table";
         if ($.fn.dataTable.isDataTable(id)) {
             $(id).DataTable().destroy();
+            $(id).empty();
         }
         //触发一个重绘事件
         hiftchart_div.trigger('refresh.chart');
@@ -27,13 +28,17 @@ $(function(){
     var Graphic = function(){
 
     };
-
+    Graphic.prototype.loading = function(id){
+        $("#"+id).append('<center class="loading" style="margin-top: 200px;text-align: center;">' +
+            '<i class="fa fa-refresh fa-spin fa-2x fa-fw margin-bottom"></i><br>' +
+            '<span>数据正在加载中...</span></center>');
+    };
     Graphic.prototype.registerListen = function(){
-        $("#adp").on('refresh.chart',function(){
+        $("#adp-chart").on('refresh.chart',function(){
             var t = new Graphic();
             t.refresh_add_player();
         });
-        $("#avp").on('refresh.chart',function(){
+        $("#avp-chart").on('refresh.chart',function(){
             var t = new Graphic();
             t.refresh_activate_player();
         });
@@ -47,12 +52,18 @@ $(function(){
         });
     },
     Graphic.prototype.refresh_add_player = function(){
+        var g = this;
         $.ajax({
-            async:true,
             type:"post",
             url:"/main/default/adp.html",
+            beforeSend:function(){
+                g.loading("adp-chart");
+            },
+            complete:function(){
+                $("#adp > .loading").remove();
+            },
             success:function(json){
-                $('#adp').highcharts({
+                $('#adp-chart').highcharts({
                     chart : {
                         type : 'line'
                     },
@@ -86,7 +97,7 @@ $(function(){
                         data : json.series
                     }]
                 });
-                $('#adp-tbl').DataTable({
+                $('#adp-table').DataTable({
                     data: (function(){
                         var data = [];
                         for(var i=0; i<json.categories.length; i++ )
@@ -106,52 +117,69 @@ $(function(){
             }
         });
     },Graphic.prototype.refresh_activate_player=function(){
-        $('#avp').highcharts({
-            chart : {
-                type : 'column'
+        var g = this;
+        $.ajax({
+            type:"post",
+            url:"/main/default/adp.html",
+            beforeSend:function(){
+                g.loading("adp-chart");
             },
-            title : {
-                text : '激活玩家'
+            complete:function(){
+                $("#adp > .loading").remove();
             },
-            subtitle : {
-                text : '最高：80%'
-            },
-            xAxis : {
-                categories : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            },
-            yAxis : {
-                min : 0,
-                title : {
-                    text : '人数'
-                }
-            },
-            tooltip : {
-                headerFormat : '<span style=\"font-size:10px\">{point.key}</span>',
-                pointFormat : '' + '',
-                footerFormat : '<table><tbody><tr><td style=\"color:{series.color};padding:0\">{series.name}: </td><td style=\"padding:0\"><b>{point.y:.1f} mm</b></td></tr></tbody></table>',
-                shared : true,
-                useHTML : true
-            },
-            plotOptions : {
-                column : {
-                    pointPadding : 0.2,
-                    borderWidth : 0
-                }
-            },
-            series : [{
-                name : '测试1',
-                data : [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-            }, {
-                name : '测试2',
-                data : [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-            }, {
-                name : '测试3',
-                data : [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-            }, {
-                name : '测试4',
-                data : [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            success:function(json){
+                $('#adp-chart').highcharts({
+                    chart : {
+                        type : 'line'
+                    },
+                    title : {
+                        text : '最高新增：' + json.max
+                    },
+                    xAxis : {
+                        categories : json.categories
+                    },
+                    yAxis : {
+                        title : {
+                            text : '玩家数'
+                        }
+                    },
+                    tooltip : {
+                        enabled   : false,
+                        formatter : function () {
+                            return '<b>' + this.series.name + '</b><br>' + this.x + ': ' + this.y + '°C';
+                        }
+                    },
+                    plotOptions : {
+                        line : {
+                            dataLabels : {
+                                enabled : true
+                            },
+                            enableMouseTracking : false
+                        }
+                    },
+                    series : [{
+                        name : '新增玩家',
+                        data : json.series
+                    }]
+                });
+                $('#adp-table').DataTable({
+                    data: (function(){
+                        var data = [];
+                        for(var i=0; i<json.categories.length; i++ )
+                        {
+                            data[i] = [
+                                json.categories[i],
+                                json.series[i]
+                            ];
+                        }
+                        return data;
+                    })(),
+                    columns: [
+                        { title: "日期" },
+                        { title: "新增人数" },
+                    ]
+                });
             }
-            ]
         });
     },Graphic.prototype.refresh_online_player = function(){
         $('#rto').highcharts({
