@@ -4,26 +4,34 @@
 $(function(){
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         //当前点击的tag
-        var curr = e.target;
+        var curr  = e.target;
         //上一个点击的tag
-        var prev = e.relatedTarget;
-        var li = $(this).parent();
+        var prev  = e.relatedTarget;
+        var li    = $(this).parent();
         var index = li.index();
-        var tab_content = li.parent().siblings('.tab-content');
-        var tab_pane    = tab_content.children('.tab-pane').eq(index);
-        var hiftchart_div   = tab_pane.children().find(".own-highchart");
-        var hiftchart_id    = hiftchart_div.attr("id");
-        var highctart = hiftchart_div.highcharts();
-        if(highctart != undefined) {
-            highctart.destroy();
-        }
-        var id = "#" + hiftchart_id.split('-')[0] + "-table";
-        if ($.fn.dataTable.isDataTable(id)) {
-            $(id).DataTable().destroy();
-            $(id).empty();
-        }
+        var tab_content     = li.parent().siblings('.tab-content');
+        var tab_pane        = tab_content.children('.tab-pane').eq(index);
+        //处理tab内的highchart图
+        var chart_div     = tab_pane.children('.own-chart');
         //触发一个重绘事件
-        hiftchart_div.trigger('refresh.chart');
+        var highchart_div = chart_div.find('.own-highchart');
+        if(highchart_div != undefined) {
+            var highctart    = highchart_div.highcharts();
+            if (highctart != undefined) {
+                highctart.destroy();
+            }
+        }
+        //处理tab内的datatable表格
+        var datatable_div = chart_div.find(".own-table");
+        if(datatable_div != undefined) {
+            var id = "#" + datatable_div.attr('id');
+
+            if ($.fn.dataTable.isDataTable(id)) {
+                $(id).DataTable().destroy();
+                $(id).empty();
+            }
+        }
+        chart_div.trigger('refresh.chart');
     });
     var Graphic = function(){
 
@@ -34,11 +42,11 @@ $(function(){
             '<span>数据正在加载中...</span></center>');
     };
     Graphic.prototype.registerListen = function(){
-        $("#adp-chart").on('refresh.chart',function(){
+        $("#adp").on('refresh.chart',function(){
             var t = new Graphic();
             t.refresh_add_player();
         });
-        $("#avp-chart").on('refresh.chart',function(){
+        $("#avp").on('refresh.chart',function(){
             var t = new Graphic();
             t.refresh_activate_player();
         });
@@ -120,20 +128,20 @@ $(function(){
         var g = this;
         $.ajax({
             type:"post",
-            url:"/main/default/adp.html",
+            url:"/main/default/avp.html",
             beforeSend:function(){
-                g.loading("adp-chart");
+                g.loading("avp-chart");
             },
             complete:function(){
                 $("#adp > .loading").remove();
             },
             success:function(json){
-                $('#adp-chart').highcharts({
+                $('#avp-chart').highcharts({
                     chart : {
-                        type : 'line'
+                        type : 'column'
                     },
                     title : {
-                        text : '最高新增：' + json.max
+                        text : '最高激活：' + json.max
                     },
                     xAxis : {
                         categories : json.categories
@@ -158,11 +166,11 @@ $(function(){
                         }
                     },
                     series : [{
-                        name : '新增玩家',
+                        name : '激活玩家',
                         data : json.series
                     }]
                 });
-                $('#adp-table').DataTable({
+                $('#avp-table').DataTable({
                     data: (function(){
                         var data = [];
                         for(var i=0; i<json.categories.length; i++ )
@@ -176,7 +184,7 @@ $(function(){
                     })(),
                     columns: [
                         { title: "日期" },
-                        { title: "新增人数" },
+                        { title: "激活人数" },
                     ]
                 });
             }
@@ -275,8 +283,8 @@ $(function(){
 
     var e = new Graphic();
     e.registerListen();
-    var content = $(".own-panel .nav-pills .active").parent().siblings('.tab-content');
+    var content = $(".own-panel .nav-pills .active").parent().siblings('.tab-content').children('.active');
     content.each(function(i,item){
-        $(item).children().find(".own-highchart").trigger('refresh.chart');
+        $(item).find(".own-chart") != undefined ? $(item).find(".own-chart").trigger('refresh.chart') : null;
     });
 });

@@ -13,8 +13,9 @@ $(function(){
     //重新渲染highcharts
     $(".nav-pills").on("shown.bs.tab",function(){
         var highchart = $(this).siblings('.tab-content').find('.tab-pane.active').find(".own-highchart").highcharts();
-        if(highchart != undefined)
+        if(highchart != undefined) {
             highchart.reflow();
+        }
     });
     //toggle
     $(".own-toggle").click(function(){
