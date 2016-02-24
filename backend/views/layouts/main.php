@@ -36,8 +36,8 @@ AppAsset::register($this);
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                     'options' => ['class' => 'breadcrumb','style'=>'margin:13px 0px 0px;'],
                     'homeLink' => [
-                        'label' => '首页',  // required
-                        'url' => '/',      // optional, will be processed by Url::to()
+                        'label' => '首页',                  // required
+                        'url' => '/',                      // optional, will be processed by Url::to()
                         'template' => "<li>{link}</li>\n", // optional, if not set $this->itemTemplate will be used
                     ]
                 ]) ?>
@@ -51,7 +51,36 @@ AppAsset::register($this);
             <?php endif;?>
             </div>
             <div class="col-xs-12 col-sm-10">
-                <?= $content ?>
+                <div class="row">
+                        <div class="panel panel-default own-panel">
+                            <div class="panel-body">
+                                <div class="col-xs-12 col-sm-10">
+                                    <input size="16" type="text" value="2012-06-15" readonly class="form_datetime">
+                                    <?= \yii\bootstrap\Button::widget([
+                                        'label' => '<span>2016-01-01 - 2016-01-05</span> 日期&nbsp;&nbsp;<i class="fa fa-calendar"></i>',
+                                        'options'=>['id'=>'own-date-filter','class'=>'btn btn-success'],
+                                        'encodeLabel'=>false
+                                    ])?>
+                                </div>
+                                <div class="col-xs-12 col-sm-2">
+                                    <?php
+                                    \yii\bootstrap\Modal::begin([
+                                        'options'=>['class'=>'own-filter'],
+                                        'header' => '<h5>筛选</h5>',
+                                        'footer' => '<button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                                     <button type="button" class="btn btn-primary" id="own-sure-filter">确认</button>',
+                                        'toggleButton' => ['label' => '<i class="fa fa-filter"></i>&nbsp;&nbsp;过滤','class'=>'btn btn-success btn-sm pull-right'],
+                                    ]);
+                                    echo 'Say hello...';
+                                    \yii\bootstrap\Modal::end();
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+                    <?= $content ?>
+                </div>
             </div>
         </div>
     </div>

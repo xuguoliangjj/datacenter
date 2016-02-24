@@ -25,7 +25,8 @@ class AppAsset extends AssetBundle
         'css/menu.css',
         'css/style.css',
         'js/icheck/skins/square/grey.css',
-        'js/highlight/styles/monokai.css'
+        'js/highlight/styles/monokai.css',
+        'js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css'
     ];
     public $js = [
         'js/metismenu/dist/metisMenu.js',
@@ -35,7 +36,8 @@ class AppAsset extends AssetBundle
         'js/icheck/icheck.js',
         'js/highcharts/js/highcharts.js',
         'js/highcharts/js/modules/exporting.js',
-        'js/highlight/highlight.pack.js'
+        'js/highlight/highlight.pack.js',
+        'js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

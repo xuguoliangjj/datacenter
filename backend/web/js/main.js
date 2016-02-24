@@ -41,6 +41,13 @@ $(function(){
             },
         }
     });
+
+    $("#own-sure-filter").click(function(){
+        var id = $(this).parents('.modal-dialog').parent().attr('id');
+        $("#"+id).modal('hide');
+    });
+    $('[data-toggle="popover"]').popover();
+    $(".form_datetime").datetimepicker({format: 'yyyy-mm-dd'});
 });
 
 

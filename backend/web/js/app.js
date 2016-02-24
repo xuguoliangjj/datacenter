@@ -39,7 +39,7 @@ $(function(){
     Graphic.prototype.loading = function(id){
         $("#"+id).append('<center class="loading" style="margin-top: 200px;text-align: center;">' +
             '<i class="fa fa-refresh fa-spin fa-2x fa-fw margin-bottom"></i><br>' +
-            '<span>数据正在加载中...</span></center>');
+            '<span>正在加载，请稍后...</span></center>');
     };
     Graphic.prototype.registerListen = function(){
         $("#adp").on('refresh.chart',function(){

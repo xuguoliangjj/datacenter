@@ -110,3 +110,11 @@ a.desc:after {
 pre{
     background-color: #23241F;
 }
+
+.own-panel{
+    margin:5px 15px 15px;
+}
+
+.modal-content {
+    border-radius: 0px;
+}
