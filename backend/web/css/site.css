@@ -118,3 +118,7 @@ pre{
 .modal-content {
     border-radius: 0px;
 }
+
+.own-close-filter-label{
+    cursor: pointer;
+}
