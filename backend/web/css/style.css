@@ -96,3 +96,21 @@
 .own-panel > .panel-body > .tab-content{
     min-height: 400px;
 }
+input,button,a {
+    outline:0 none !important;
+}
+
+.own-filter-list > ul > li{
+    float: left;
+    width: 33.333%;
+    border: none;
+    cursor: pointer;
+}
+
+.own-filter-list{
+    display: none;
+}
+
+.active{
+    display: block;
+}
