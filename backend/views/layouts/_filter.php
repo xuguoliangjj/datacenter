@@ -74,23 +74,17 @@
                 <div class="col-xs-12 col-sm-12">
                     <div id="own-platform">
                         <span class="own-title">平 台：</span>
-                        <span class="label label-default">中国&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-                        <span class="label label-default">台湾&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-                        <span class="label label-default">日本&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
+                        <span class="label label-default" data-platform="all">全部平台</span>
                     </div>
                     <br>
                     <div id="own-server">
                         <span class="own-title">区 服：</span>
-                        <span class="label label-default">安卓1服&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-                        <span class="label label-default">安卓2服&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-                        <span class="label label-default">安卓3服&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-                        <span class="label label-default">安卓4服&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
-
+                        <span class="label label-default" data-server="all">全部区服</span>
                     </div>
                     <br>
                     <div id="own-channel">
                         <span class="own-title">渠 道：</span>
-                        <span class="label label-default">安卓&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>
+                        <span class="label label-default" data-channel="all">全部渠道</span>
                     </div>
 
                 </div>

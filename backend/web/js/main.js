@@ -3,7 +3,85 @@
 //        $('.own-menu-bar').height($(document).height());
 //};
 $(function(){
-    var that=this;
+    var Global = function(){
+        Global.prototype.platform = [];
+        Global.prototype.channel  = [];
+        Global.prototype.server   = [];
+    };
+    GlobalObj = new Global();
+    //渲染过滤
+    Global.prototype.renderFilter=function(){
+        this.platform.length !=0 ? $("#own-platform").fadeIn() : null;
+        this.platform.length !=0 ? $("#own-platform > span:first").siblings().remove() : $("#own-platform > span:first").siblings('[data-platform!="all"]').remove();
+        for(var i=0;i<this.platform.length;i++){
+            var name = this.platform[i].name;
+            var id = this.platform[i].id;
+            var html = '<span class="label label-default" data-platform="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-platform").append(html);
+        }
+        this.server.length != 0 ? $("#own-server").fadeIn() : null;
+        this.server.length !=0 ? $("#own-server > span:first").siblings().remove() : $("#own-server > span:first").siblings('[data-server!="all"]').remove();
+        for(var i=0;i<this.server.length;i++){
+            var name = this.server[i].name;
+            var id = this.server[i].id;
+            var html = '<span class="label label-default" data-server="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-server").append(html);
+        }
+        this.channel.length != 0 ?  $("#own-channel").fadeIn() : null;
+        this.channel.length !=0 ? $("#own-channel > span:first").siblings().remove() : $("#own-channel > span:first").siblings('[data-channel!="all"]').remove();
+        for(var i=0;i<this.channel.length;i++){
+            var name = this.channel[i].name;
+            var id = this.channel[i].id;
+            var html = '<span class="label label-default" data-channel="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-channel").append(html);
+        }
+        GlobalObj.deleteFilterTag();
+    };
+    //查找id所在位置
+    Global.prototype.indexOf = function(arr,val) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id == val)
+                return i;
+        }
+        return -1;
+    };
+    //删除
+    Global.prototype.findIndex = function(arr,val){
+        return this.indexOf(arr,val);
+    };
+    //监听删除过滤条件
+    Global.prototype.deleteFilterTag = function () {
+        $(".own-close-filter-label").click(function(){
+            if($(this).parent().data("platform") != undefined){
+                var index = GlobalObj.findIndex(GlobalObj.platform,$(this).parent().data("platform"));
+                GlobalObj.platform.splice(index,1);
+            }
+            if($(this).parent().data("server") != undefined){
+                var index = GlobalObj.findIndex(GlobalObj.server,$(this).parent().data("server"));
+                GlobalObj.server.splice(index,1);
+                console.log(GlobalObj.server);
+            }
+            if($(this).parent().data("channel") != undefined){
+                var index = GlobalObj.findIndex(GlobalObj.channel,$(this).parent().data("channel"));
+                GlobalObj.channel.splice(index,1);
+            }
+            if($(this).parent().siblings('span').length >= 2) {
+                $(this).parent().remove();
+            }else{
+                var filter = $(this).parent().parent();
+                var filterType = filter.attr("id").split("-")[1];
+                $(this).parent().remove();
+                if(filterType == "platform"){
+                    filter.append('<span class="label label-default" data-platform="all">全部平台</span>');
+                }else if(filterType == "channel"){
+                    filter.append('<span class="label label-default" data-channel="all">全部渠道</span>');
+                }else if(filterType == "server"){
+                    filter.append('<span class="label label-default" data-server="all">全部区服</span>');
+                }
+            }
+        });
+    }
+
     $(':checkbox').iCheck({
         checkboxClass: 'icheckbox_square-grey',
         radioClass: 'iradio_square-grey',
@@ -43,44 +121,44 @@ $(function(){
         }
     });
 
+    //确认
     $("#own-sure-filter").click(function(){
-        var platform = [];
-        var channel  = [];
-        var server   = [];
         var platform_items = $("#own-filter-platform-list > ul > li");
+        GlobalObj.platform=[];
         for(var i=0; i < platform_items.length; i++)
         {
             if($(platform_items[i]).children("i").hasClass('fa-check')){
                 var id   = $(platform_items[i]).attr("id").split("-")[2];
                 var name = $(platform_items[i]).children("label").text();
-                platform.push({id:id,name:name});
-                var html = '<span class="label label-default">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>&nbsp;';
-                $("#own-platform").append(html);
+                GlobalObj.platform.push({id:id,name:name});
             }
         }
 
         var channel_items = $("#own-filter-channel-list > ul > li");
+        GlobalObj.channel=[];
         for(var i=0; i < channel_items.length; i++)
         {
             if($(channel_items[i]).children("i").hasClass('fa-check')){
                 var id = $(channel_items[i]).attr("id").split("-")[2];
                 var name = $(channel_items[i]).children("label").text();
-                channel.push({id:id,name:name});
+                GlobalObj.channel.push({id:id,name:name});
             }
         }
 
         var server_items = $("#own-filter-server-list > ul > li");
+        GlobalObj.server=[];
         for(var i=0; i < server_items.length; i++)
         {
             if($(server_items[i]).children("i").hasClass('fa-check')){
                 var id = $(server_items[i]).attr("id").split("-")[2];
                 var name = $(server_items[i]).children("label").text();
-                server.push({id:id,name:name});
+                GlobalObj.server.push({id:id,name:name});
             }
         }
 
         var id = $(this).parents('.modal-dialog').parent().attr('id');
         $("#"+id).modal('hide');
+        GlobalObj.renderFilter();
     });
     $('[data-toggle="popover"]').popover();
 
@@ -90,12 +168,11 @@ $(function(){
         format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
         autoclose:true, //选择日期后自动关闭
         bootcssVer:3,
-        pickerPosition: "bottom-left",
-        linkField:"own-date-start"
+        pickerPosition: "bottom-left"
     };
     $("#own-date-filter").click(function(e){
         $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
-            $("#own-date-start").empty().text(ev.date.Format("yyyy-MM-dd"));
+            $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
             $("#own-date-end").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
                 $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
             });
@@ -105,15 +182,7 @@ $(function(){
     });
 
     //删除过滤条件
-    $(".own-close-filter-label").click(function(){
-        if($(this).parent().siblings('span').length >= 2) {
-            $(this).parent().remove();
-        }else{
-            var filter = $(this).parent().parent();
-            $(this).parent().remove();
-            filter.fadeOut();
-        }
-    });
+    GlobalObj.deleteFilterTag();
 
     //快速选择日期
     $("#own-filter-date-quick > button").click(function(){

@@ -114,3 +114,7 @@ input,button,a {
 .active{
     display: block;
 }
+
+#own-platform .label,#own-server .label,#own-channel .label{
+    margin-right: 2px;
+}
