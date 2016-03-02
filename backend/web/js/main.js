@@ -1,37 +1,69 @@
-//$.fn.resizeMenu=function(){
-//    if($(document).width() >=750)
-//        $('.own-menu-bar').height($(document).height());
-//};
+//扩展Jquery
+$.extend({
+    /**
+     * 触发图表重绘事件
+     */
+    triggerChart:function(){
+        var content = $(".own-panel .nav-pills .active > a");
+        content.each(function(i,item){
+            $(item).tab('show').trigger('show.bs.tab');
+        });
+    },
+    buildParams:function(){
+        var startStr       = $("#own-date-start").text();
+        var endStr         = $("#own-date-end").text();
+        var platfromStr = "";
+        var serverStr   = "";
+        var channelStr  = "";
+
+        for(var i=0;i< $.fn.platform.length;i++){
+            platfromStr += $.fn.platform[i].id + ",";
+        }
+        platfromStr = platfromStr.substring(0,platfromStr.length-1);
+
+        for(var i=0;i< $.fn.server.length;i++){
+            serverStr += $.fn.server[i].id + ",";
+        }
+        serverStr = serverStr.substring(0,serverStr.length-1);
+
+        for(var i=0;i< $.fn.channel.length;i++){
+            channelStr += $.fn.channel[i].id + ",";
+        }
+        channelStr = channelStr.substring(0,channelStr.length-1);
+
+        return {starttime:startStr,endtime:endStr,platform: platfromStr,channel:channelStr,server:serverStr}
+    }
+});
+$.fn.platform = [];
+$.fn.channel  = [];
+$.fn.server   = [];
 $(function(){
     var Global = function(){
-        Global.prototype.platform = [];
-        Global.prototype.channel  = [];
-        Global.prototype.server   = [];
     };
     GlobalObj = new Global();
     //渲染过滤
     Global.prototype.renderFilter=function(){
-        this.platform.length !=0 ? $("#own-platform").fadeIn() : null;
-        this.platform.length !=0 ? $("#own-platform > span:first").siblings().remove() : $("#own-platform > span:first").siblings('[data-platform!="all"]').remove();
-        for(var i=0;i<this.platform.length;i++){
-            var name = this.platform[i].name;
-            var id = this.platform[i].id;
+        $.fn.platform.length !=0 ? $("#own-platform").fadeIn() : null;
+        $.fn.platform.length !=0 ? $("#own-platform > span:first").siblings().remove() : $("#own-platform > span:first").siblings('[data-platform!="all"]').remove();
+        for(var i=0;i<$.fn.platform.length;i++){
+            var name = $.fn.platform[i].name;
+            var id = $.fn.platform[i].id;
             var html = '<span class="label label-default" data-platform="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
             $("#own-platform").append(html);
         }
-        this.server.length != 0 ? $("#own-server").fadeIn() : null;
-        this.server.length !=0 ? $("#own-server > span:first").siblings().remove() : $("#own-server > span:first").siblings('[data-server!="all"]').remove();
-        for(var i=0;i<this.server.length;i++){
-            var name = this.server[i].name;
-            var id = this.server[i].id;
+        $.fn.server.length != 0 ? $("#own-server").fadeIn() : null;
+        $.fn.server.length !=0 ? $("#own-server > span:first").siblings().remove() : $("#own-server > span:first").siblings('[data-server!="all"]').remove();
+        for(var i=0;i<$.fn.server.length;i++){
+            var name = $.fn.server[i].name;
+            var id = $.fn.server[i].id;
             var html = '<span class="label label-default" data-server="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
             $("#own-server").append(html);
         }
-        this.channel.length != 0 ?  $("#own-channel").fadeIn() : null;
-        this.channel.length !=0 ? $("#own-channel > span:first").siblings().remove() : $("#own-channel > span:first").siblings('[data-channel!="all"]').remove();
-        for(var i=0;i<this.channel.length;i++){
-            var name = this.channel[i].name;
-            var id = this.channel[i].id;
+        $.fn.channel.length != 0 ?  $("#own-channel").fadeIn() : null;
+        $.fn.channel.length !=0 ? $("#own-channel > span:first").siblings().remove() : $("#own-channel > span:first").siblings('[data-channel!="all"]').remove();
+        for(var i=0;i<$.fn.channel.length;i++){
+            var name = $.fn.channel[i].name;
+            var id = $.fn.channel[i].id;
             var html = '<span class="label label-default" data-channel="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
             $("#own-channel").append(html);
         }
@@ -53,17 +85,17 @@ $(function(){
     Global.prototype.deleteFilterTag = function () {
         $(".own-close-filter-label").click(function(){
             if($(this).parent().data("platform") != undefined){
-                var index = GlobalObj.findIndex(GlobalObj.platform,$(this).parent().data("platform"));
-                GlobalObj.platform.splice(index,1);
+                var index = GlobalObj.findIndex($.fn.platform,$(this).parent().data("platform"));
+                $.fn.platform.splice(index,1);
             }
             if($(this).parent().data("server") != undefined){
-                var index = GlobalObj.findIndex(GlobalObj.server,$(this).parent().data("server"));
-                GlobalObj.server.splice(index,1);
-                console.log(GlobalObj.server);
+                var index = GlobalObj.findIndex($.fn.server,$(this).parent().data("server"));
+                $.fn.server.splice(index,1);
+                console.log($.fn.server);
             }
             if($(this).parent().data("channel") != undefined){
-                var index = GlobalObj.findIndex(GlobalObj.channel,$(this).parent().data("channel"));
-                GlobalObj.channel.splice(index,1);
+                var index = GlobalObj.findIndex($.fn.channel,$(this).parent().data("channel"));
+                $.fn.channel.splice(index,1);
             }
             if($(this).parent().siblings('span').length >= 2) {
                 $(this).parent().remove();
@@ -79,6 +111,7 @@ $(function(){
                     filter.append('<span class="label label-default" data-server="all">全部区服</span>');
                 }
             }
+            $.triggerChart();
         });
     }
 
@@ -124,41 +157,42 @@ $(function(){
     //确认
     $("#own-sure-filter").click(function(){
         var platform_items = $("#own-filter-platform-list > ul > li");
-        GlobalObj.platform=[];
+        $.fn.platform=[];
         for(var i=0; i < platform_items.length; i++)
         {
             if($(platform_items[i]).children("i").hasClass('fa-check')){
                 var id   = $(platform_items[i]).attr("id").split("-")[2];
                 var name = $(platform_items[i]).children("label").text();
-                GlobalObj.platform.push({id:id,name:name});
+                $.fn.platform.push({id:id,name:name});
             }
         }
 
         var channel_items = $("#own-filter-channel-list > ul > li");
-        GlobalObj.channel=[];
+        $.fn.channel=[];
         for(var i=0; i < channel_items.length; i++)
         {
             if($(channel_items[i]).children("i").hasClass('fa-check')){
                 var id = $(channel_items[i]).attr("id").split("-")[2];
                 var name = $(channel_items[i]).children("label").text();
-                GlobalObj.channel.push({id:id,name:name});
+                $.fn.channel.push({id:id,name:name});
             }
         }
 
         var server_items = $("#own-filter-server-list > ul > li");
-        GlobalObj.server=[];
+        $.fn.server=[];
         for(var i=0; i < server_items.length; i++)
         {
             if($(server_items[i]).children("i").hasClass('fa-check')){
                 var id = $(server_items[i]).attr("id").split("-")[2];
                 var name = $(server_items[i]).children("label").text();
-                GlobalObj.server.push({id:id,name:name});
+                $.fn.server.push({id:id,name:name});
             }
         }
 
         var id = $(this).parents('.modal-dialog').parent().attr('id');
         $("#"+id).modal('hide');
         GlobalObj.renderFilter();
+        $.triggerChart();
     });
     $('[data-toggle="popover"]').popover();
 

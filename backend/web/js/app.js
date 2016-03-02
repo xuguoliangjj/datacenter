@@ -25,7 +25,6 @@ $(function(){
         var datatable_div = chart_div.find(".own-table");
         if(datatable_div != undefined) {
             var id = "#" + datatable_div.attr('id');
-
             if ($.fn.dataTable.isDataTable(id)) {
                 $(id).DataTable().destroy();
                 $(id).empty();
@@ -44,25 +43,26 @@ $(function(){
     Graphic.prototype.registerListen = function(){
         $("#adp").on('refresh.chart',function(){
             var t = new Graphic();
-            t.refresh_add_player();
+            t.refresh_add_player($.buildParams());
         });
         $("#avp").on('refresh.chart',function(){
             var t = new Graphic();
-            t.refresh_activate_player();
+            t.refresh_activate_player($.buildParams());
         });
         $("#rto").on('refresh.chart',function(){
             var t = new Graphic();
-            t.refresh_online_player();
+            t.refresh_online_player($.buildParams());
         });
         $("#acp").on('refresh.chart',function(){
             var t = new Graphic();
-            t.refresh_active_player();
+            t.refresh_active_player($.buildParams());
         });
     },
-    Graphic.prototype.refresh_add_player = function(){
+    Graphic.prototype.refresh_add_player = function(params){
         var g = this;
         $.ajax({
             type:"post",
+            data:params,
             url:"/main/default/adp.html",
             beforeSend:function(){
                 g.loading("adp-chart");
@@ -124,10 +124,11 @@ $(function(){
                 });
             }
         });
-    },Graphic.prototype.refresh_activate_player=function(){
+    },Graphic.prototype.refresh_activate_player=function(params){
         var g = this;
         $.ajax({
             type:"post",
+            data:params,
             url:"/main/default/avp.html",
             beforeSend:function(){
                 g.loading("avp-chart");
@@ -189,7 +190,7 @@ $(function(){
                 });
             }
         });
-    },Graphic.prototype.refresh_online_player = function(){
+    },Graphic.prototype.refresh_online_player = function(params){
         $('#rto').highcharts({
             chart : {
                 type : 'line'
@@ -231,7 +232,7 @@ $(function(){
             }
             ]
         });
-    },Graphic.prototype.refresh_active_player = function(){
+    },Graphic.prototype.refresh_active_player = function(params){
         $("#acp").highcharts({
             chart : {
                 type : 'column'
@@ -283,8 +284,5 @@ $(function(){
 
     var e = new Graphic();
     e.registerListen();
-    var content = $(".own-panel .nav-pills .active").parent().siblings('.tab-content').children('.active');
-    content.each(function(i,item){
-        $(item).find(".own-chart") != undefined ? $(item).find(".own-chart").trigger('refresh.chart') : null;
-    });
+    $.triggerChart();
 });
