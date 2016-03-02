@@ -204,14 +204,15 @@ $(function(){
         bootcssVer:3,
         pickerPosition: "bottom-left"
     };
-    $("#own-date-filter").click(function(e){
-        $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
-            $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
-            $("#own-date-end").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
-                $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
-            });
-            $("#own-date-end").datetimepicker("show");
-        })
+    $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
+        $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
+        $("#own-date-end").datetimepicker("show");
+    });
+    $("#own-date-end").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
+        $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
+        $.triggerChart();
+    });
+    $("#own-date-filter").click(function(){
         $("#own-date-start").datetimepicker("show");
     });
 
@@ -281,6 +282,11 @@ $(function(){
         var id = $(this).attr("id").split("-");
         var item = id[id.length-1];
         $("#own-filter-"+item+"-list").addClass('active').siblings().removeClass('active');
+    });
+
+    //刷新按钮
+    $("#own-refresh-chart").click(function(){
+        $.triggerChart();
     });
 });
 

@@ -15,6 +15,7 @@
                         <button type="button" class="btn btn-default" data-date="-15">近15天</button>
                         <button type="button" class="btn btn-default" data-date="-30">近30天</button>
                     </div>
+                    <?= \yii\helpers\Html::button('<i class="fa fa-refresh"></i>&nbsp;&nbsp;刷新一下',['class'=>'btn btn-success btn-sm','id'=>'own-refresh-chart'])?>
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <?php
