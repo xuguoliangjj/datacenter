@@ -228,6 +228,7 @@ $(function(){
         var end   = new Date(new Date().getTime()).Format("yyyy-MM-dd");
         $("#own-date-start").empty().text(start);
         $("#own-date-end").empty().text(end);
+        $.triggerChart();
     });
 
     //过滤
