@@ -6,15 +6,16 @@ use yii\filters\auth\CompositeAuth;
 use yii\filters\ContentNegotiator;
 use yii\filters\RateLimiter;
 use yii\filters\VerbFilter;
-use yii\rest\Controller;
+use yii\rest\ActiveController;
 use yii\web\Response;
 
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends ActiveController
 {
+    public $modelClass = 'frontend\models\Adp';
     /**
      * @inheritdoc
      */
