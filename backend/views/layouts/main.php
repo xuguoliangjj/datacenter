@@ -51,7 +51,6 @@ AppAsset::register($this);
             <?php endif;?>
             </div>
             <div class="col-xs-12 col-sm-10">
-                <?=$this -> context -> renderPartial('@backend/views/layouts/_filter');?>
                 <div class="row">
                     <?= $content ?>
                 </div>

@@ -3,14 +3,14 @@
 namespace backend\modules\join\controllers;
 
 use Yii;
-use common\models\app;
+use common\models\App;
 use common\models\searchs\AppSearch;
 use backend\components\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AppController implements the CRUD actions for app model.
+ * AppController implements the CRUD actions for App model.
  */
 class AppController extends BaseController
 {
@@ -27,7 +27,7 @@ class AppController extends BaseController
     }
 
     /**
-     * Lists all app models.
+     * Lists all App models.
      * @return mixed
      */
     public function actionIndex()
@@ -42,7 +42,7 @@ class AppController extends BaseController
     }
 
     /**
-     * Displays a single app model.
+     * Displays a single App model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class AppController extends BaseController
     }
 
     /**
-     * Creates a new app model.
+     * Creates a new App model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new app();
+        $model = new App();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class AppController extends BaseController
     }
 
     /**
-     * Updates an existing app model.
+     * Updates an existing App model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class AppController extends BaseController
     }
 
     /**
-     * Deletes an existing app model.
+     * Deletes an existing App model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class AppController extends BaseController
     }
 
     /**
-     * Finds the app model based on its primary key value.
+     * Finds the App model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return app the loaded model
+     * @return App the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = app::findOne($id)) !== null) {
+        if (($model = App::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

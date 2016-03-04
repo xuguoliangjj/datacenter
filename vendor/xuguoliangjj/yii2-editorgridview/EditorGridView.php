@@ -17,8 +17,8 @@ use yii\base\Model;
 class EditorGridView extends GridView
 {
     public $dataColumnClass;
-    public $tableOptions = ["class"=>"table table-striped table-bordered table-condensed","cellspacing"=>"0", "width"=>"100%"];
-    public $outerTableOptions = ['class'=>'table-responsive'];
+    public $tableOptions = ["class"=>"table grid-view","cellspacing"=>"0", "width"=>"100%"];
+    public $outerTableOptions = ['class'=>'own-table-outer'];
     public $options = ['class'=>'grid-view'];
 
     /**
@@ -109,6 +109,15 @@ class EditorGridView extends GridView
                 });");
             }
         }
+        $class = $this->outerTableOptions['class'];
+        $view->registerJs("jQuery('#$id > .$class > .grid-view').DataTable({
+				searching:false,
+				info:false,
+				paging:false,
+				language: {
+                    'sLengthMenu': '',
+				}});"
+        );
     }
 
     /**

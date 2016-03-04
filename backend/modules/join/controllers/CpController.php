@@ -3,7 +3,7 @@
 namespace backend\modules\join\controllers;
 
 use Yii;
-use common\models\cp;
+use common\models\Cp;
 use common\models\searchs\CpSearch;
 use backend\components\BaseController;
 use yii\web\NotFoundHttpException;
@@ -54,13 +54,13 @@ class CpController extends BaseController
     }
 
     /**
-     * Creates a new cp model.
+     * Creates a new Cp model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new cp();
+        $model = new Cp();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class CpController extends BaseController
     }
 
     /**
-     * Updates an existing cp model.
+     * Updates an existing Cp model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class CpController extends BaseController
     }
 
     /**
-     * Deletes an existing cp model.
+     * Deletes an existing Cp model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class CpController extends BaseController
     }
 
     /**
-     * Finds the cp model based on its primary key value.
+     * Finds the Cp model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return cp the loaded model
+     * @return Cp the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = cp::findOne($id)) !== null) {
+        if (($model = Cp::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

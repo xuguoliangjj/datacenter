@@ -1,9 +1,124 @@
-//$.fn.resizeMenu=function(){
-//    if($(document).width() >=750)
-//        $('.own-menu-bar').height($(document).height());
-//};
+//扩展Jquery
+$.extend({
+    /**
+     * 触发图表重绘事件
+     */
+    triggerChart:function(){
+        var content = $(".own-panel .nav-pills .active > a");
+        content.each(function(i,item){
+            $(item).tab('show').trigger('show.bs.tab');
+        });
+    },
+    buildParams:function(){
+        var startStr       = $("#own-date-start").text();
+        var endStr         = $("#own-date-end").text();
+        var platfromStr = "";
+        var serverStr   = "";
+        var channelStr  = "";
+
+        for(var i=0;i< $.fn.platform.length;i++){
+            platfromStr += $.fn.platform[i].id + ",";
+        }
+        platfromStr = platfromStr.substring(0,platfromStr.length-1);
+
+        for(var i=0;i< $.fn.server.length;i++){
+            serverStr += $.fn.server[i].id + ",";
+        }
+        serverStr = serverStr.substring(0,serverStr.length-1);
+
+        for(var i=0;i< $.fn.channel.length;i++){
+            channelStr += $.fn.channel[i].id + ",";
+        }
+        channelStr = channelStr.substring(0,channelStr.length-1);
+
+        return {starttime:startStr,endtime:endStr,platform: platfromStr,channel:channelStr,server:serverStr}
+    }
+});
+$.fn.platform = [];
+$.fn.channel  = [];
+$.fn.server   = [];
 $(function(){
+<<<<<<< HEAD
     var Main = function(){};
+=======
+    var Global = function(){
+    };
+    GlobalObj = new Global();
+    //渲染过滤
+    Global.prototype.renderFilter=function(){
+        $.fn.platform.length !=0 ? $("#own-platform").fadeIn() : null;
+        $.fn.platform.length !=0 ? $("#own-platform > span:first").siblings().remove() : $("#own-platform > span:first").siblings('[data-platform!="all"]').remove();
+        for(var i=0;i<$.fn.platform.length;i++){
+            var name = $.fn.platform[i].name;
+            var id = $.fn.platform[i].id;
+            var html = '<span class="label label-default" data-platform="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-platform").append(html);
+        }
+        $.fn.server.length != 0 ? $("#own-server").fadeIn() : null;
+        $.fn.server.length !=0 ? $("#own-server > span:first").siblings().remove() : $("#own-server > span:first").siblings('[data-server!="all"]').remove();
+        for(var i=0;i<$.fn.server.length;i++){
+            var name = $.fn.server[i].name;
+            var id = $.fn.server[i].id;
+            var html = '<span class="label label-default" data-server="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-server").append(html);
+        }
+        $.fn.channel.length != 0 ?  $("#own-channel").fadeIn() : null;
+        $.fn.channel.length !=0 ? $("#own-channel > span:first").siblings().remove() : $("#own-channel > span:first").siblings('[data-channel!="all"]').remove();
+        for(var i=0;i<$.fn.channel.length;i++){
+            var name = $.fn.channel[i].name;
+            var id = $.fn.channel[i].id;
+            var html = '<span class="label label-default" data-channel="'+id+'">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>';
+            $("#own-channel").append(html);
+        }
+        GlobalObj.deleteFilterTag();
+    };
+    //查找id所在位置
+    Global.prototype.indexOf = function(arr,val) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id == val)
+                return i;
+        }
+        return -1;
+    };
+    //删除
+    Global.prototype.findIndex = function(arr,val){
+        return this.indexOf(arr,val);
+    };
+    //监听删除过滤条件
+    Global.prototype.deleteFilterTag = function () {
+        $(".own-close-filter-label").click(function(){
+            if($(this).parent().data("platform") != undefined){
+                var index = GlobalObj.findIndex($.fn.platform,$(this).parent().data("platform"));
+                $.fn.platform.splice(index,1);
+            }
+            if($(this).parent().data("server") != undefined){
+                var index = GlobalObj.findIndex($.fn.server,$(this).parent().data("server"));
+                $.fn.server.splice(index,1);
+                console.log($.fn.server);
+            }
+            if($(this).parent().data("channel") != undefined){
+                var index = GlobalObj.findIndex($.fn.channel,$(this).parent().data("channel"));
+                $.fn.channel.splice(index,1);
+            }
+            if($(this).parent().siblings('span').length >= 2) {
+                $(this).parent().remove();
+            }else{
+                var filter = $(this).parent().parent();
+                var filterType = filter.attr("id").split("-")[1];
+                $(this).parent().remove();
+                if(filterType == "platform"){
+                    filter.append('<span class="label label-default" data-platform="all">全部平台</span>');
+                }else if(filterType == "channel"){
+                    filter.append('<span class="label label-default" data-channel="all">全部渠道</span>');
+                }else if(filterType == "server"){
+                    filter.append('<span class="label label-default" data-server="all">全部区服</span>');
+                }
+            }
+            $.triggerChart();
+        });
+    }
+
+>>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     $(':checkbox').iCheck({
         checkboxClass: 'icheckbox_square-grey',
         radioClass: 'iradio_square-grey',
@@ -43,45 +158,49 @@ $(function(){
         }
     });
 
+    //确认
     $("#own-sure-filter").click(function(){
-        var platform = [];
-        var channel  = [];
-        var server   = [];
         var platform_items = $("#own-filter-platform-list > ul > li");
+        $.fn.platform=[];
         for(var i=0; i < platform_items.length; i++)
         {
             if($(platform_items[i]).children("i").hasClass('fa-check')){
                 var id   = $(platform_items[i]).attr("id").split("-")[2];
                 var name = $(platform_items[i]).children("label").text();
-                platform.push({id:id,name:name});
-                var html = '<span class="label label-default">'+name+'&nbsp;<i class="fa fa-close own-close-filter-label"></i></span>&nbsp;';
-                $("#own-platform").append(html);
+                $.fn.platform.push({id:id,name:name});
             }
         }
 
         var channel_items = $("#own-filter-channel-list > ul > li");
+        $.fn.channel=[];
         for(var i=0; i < channel_items.length; i++)
         {
             if($(channel_items[i]).children("i").hasClass('fa-check')){
                 var id = $(channel_items[i]).attr("id").split("-")[2];
                 var name = $(channel_items[i]).children("label").text();
-                channel.push({id:id,name:name});
+                $.fn.channel.push({id:id,name:name});
             }
         }
 
         var server_items = $("#own-filter-server-list > ul > li");
+        $.fn.server=[];
         for(var i=0; i < server_items.length; i++)
         {
             if($(server_items[i]).children("i").hasClass('fa-check')){
                 var id = $(server_items[i]).attr("id").split("-")[2];
                 var name = $(server_items[i]).children("label").text();
-                server.push({id:id,name:name});
+                $.fn.server.push({id:id,name:name});
             }
         }
 
         var id = $(this).parents('.modal-dialog').parent().attr('id');
         $("#"+id).modal('hide');
+<<<<<<< HEAD
         (new Main()).close_filter_label();
+=======
+        GlobalObj.renderFilter();
+        $.triggerChart();
+>>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     });
     $('[data-toggle="popover"]').popover();
 
@@ -91,21 +210,22 @@ $(function(){
         format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
         autoclose:true, //选择日期后自动关闭
         bootcssVer:3,
-        pickerPosition: "bottom-left",
-        linkField:"own-date-start"
+        pickerPosition: "bottom-left"
     };
-    $("#own-date-filter").click(function(e){
-        $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
-            $("#own-date-start").empty().text(ev.date.Format("yyyy-MM-dd"));
-            $("#own-date-end").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
-                $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
-            });
-            $("#own-date-end").datetimepicker("show");
-        })
+    $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
+        $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
+        $("#own-date-end").datetimepicker("show");
+    });
+    $("#own-date-end").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){
+        $(this).empty().text(ev.date.Format("yyyy-MM-dd"));
+        $.triggerChart();
+    });
+    $("#own-date-filter").click(function(){
         $("#own-date-start").datetimepicker("show");
     });
 
     //删除过滤条件
+<<<<<<< HEAD
     Main.prototype.close_filter_label = function(){
         $(".own-close-filter-label").click(function(){
             if($(this).parent().siblings('span').length >= 2) {
@@ -118,6 +238,10 @@ $(function(){
         });
     };
     (new Main()).close_filter_label();
+=======
+    GlobalObj.deleteFilterTag();
+
+>>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     //快速选择日期
     $("#own-filter-date-quick > button").click(function(){
         $(this).removeClass("btn btn-default").addClass("btn btn-success");
@@ -128,6 +252,7 @@ $(function(){
         var end   = new Date(new Date().getTime()).Format("yyyy-MM-dd");
         $("#own-date-start").empty().text(start);
         $("#own-date-end").empty().text(end);
+        $.triggerChart();
     });
 
     //过滤
@@ -180,6 +305,11 @@ $(function(){
         var id = $(this).attr("id").split("-");
         var item = id[id.length-1];
         $("#own-filter-"+item+"-list").addClass('active').siblings().removeClass('active');
+    });
+
+    //刷新按钮
+    $("#own-refresh-chart").click(function(){
+        $.triggerChart();
     });
 });
 

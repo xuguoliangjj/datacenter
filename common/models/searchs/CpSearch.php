@@ -5,12 +5,12 @@ namespace common\models\searchs;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\cp;
+use common\models\Cp;
 
 /**
  * CpSearch represents the model behind the search form about `common\models\cp`.
  */
-class CpSearch extends cp
+class CpSearch extends Cp
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class CpSearch extends cp
      */
     public function search($params)
     {
-        $query = cp::find();
+        $query = Cp::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -20,18 +20,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'app_code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tbl_prefix')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'version')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($model, 'cp_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Cp::find()->all(),'id','cp_name')) ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'cp_id')->textInput() ?>
-
-    <?= $form->field($model, 'active')->textInput() ?>
-
+    <?= $form->field($model, 'active')->dropDownList([
+        0=>'激活',
+        1=>'不激活'
+    ]) ?>
+    <?= $form->field($model, 'api_url')->textInput(['maxlength' => true]) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
