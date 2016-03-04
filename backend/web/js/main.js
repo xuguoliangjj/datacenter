@@ -38,9 +38,6 @@ $.fn.platform = [];
 $.fn.channel  = [];
 $.fn.server   = [];
 $(function(){
-<<<<<<< HEAD
-    var Main = function(){};
-=======
     var Global = function(){
     };
     GlobalObj = new Global();
@@ -118,7 +115,6 @@ $(function(){
         });
     }
 
->>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     $(':checkbox').iCheck({
         checkboxClass: 'icheckbox_square-grey',
         radioClass: 'iradio_square-grey',
@@ -154,7 +150,7 @@ $(function(){
                 "sPrevious": "上一页",
                 "sNext": "下一页",
                 "sLast": "末页"
-            }
+            },
         }
     });
 
@@ -195,12 +191,8 @@ $(function(){
 
         var id = $(this).parents('.modal-dialog').parent().attr('id');
         $("#"+id).modal('hide');
-<<<<<<< HEAD
-        (new Main()).close_filter_label();
-=======
         GlobalObj.renderFilter();
         $.triggerChart();
->>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     });
     $('[data-toggle="popover"]').popover();
 
@@ -225,23 +217,8 @@ $(function(){
     });
 
     //删除过滤条件
-<<<<<<< HEAD
-    Main.prototype.close_filter_label = function(){
-        $(".own-close-filter-label").click(function(){
-            if($(this).parent().siblings('span').length >= 2) {
-                $(this).parent().remove();
-            }else{
-                var filter = $(this).parent().parent();
-                $(this).parent().remove();
-                filter.fadeOut();
-            }
-        });
-    };
-    (new Main()).close_filter_label();
-=======
     GlobalObj.deleteFilterTag();
 
->>>>>>> 5cfe8a096a84ef61a512d23c3371d903c0613643
     //快速选择日期
     $("#own-filter-date-quick > button").click(function(){
         $(this).removeClass("btn btn-default").addClass("btn btn-success");
@@ -328,4 +305,3 @@ Date.prototype.Format = function (fmt) {
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
-
