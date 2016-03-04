@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'css/style.css',
         'js/icheck/skins/square/grey.css',
         'js/highlight/styles/monokai.css',
+        'js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css'
 
     ];
     public $js = [
