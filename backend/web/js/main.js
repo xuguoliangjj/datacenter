@@ -3,7 +3,7 @@
 //        $('.own-menu-bar').height($(document).height());
 //};
 $(function(){
-    var that=this;
+    var Main = function(){};
     $(':checkbox').iCheck({
         checkboxClass: 'icheckbox_square-grey',
         radioClass: 'iradio_square-grey',
@@ -39,7 +39,7 @@ $(function(){
                 "sPrevious": "上一页",
                 "sNext": "下一页",
                 "sLast": "末页"
-            },
+            }
         }
     });
 
@@ -81,6 +81,7 @@ $(function(){
 
         var id = $(this).parents('.modal-dialog').parent().attr('id');
         $("#"+id).modal('hide');
+        (new Main()).close_filter_label();
     });
     $('[data-toggle="popover"]').popover();
 
@@ -105,16 +106,18 @@ $(function(){
     });
 
     //删除过滤条件
-    $(".own-close-filter-label").click(function(){
-        if($(this).parent().siblings('span').length >= 2) {
-            $(this).parent().remove();
-        }else{
-            var filter = $(this).parent().parent();
-            $(this).parent().remove();
-            filter.fadeOut();
-        }
-    });
-
+    Main.prototype.close_filter_label = function(){
+        $(".own-close-filter-label").click(function(){
+            if($(this).parent().siblings('span').length >= 2) {
+                $(this).parent().remove();
+            }else{
+                var filter = $(this).parent().parent();
+                $(this).parent().remove();
+                filter.fadeOut();
+            }
+        });
+    };
+    (new Main()).close_filter_label();
     //快速选择日期
     $("#own-filter-date-quick > button").click(function(){
         $(this).removeClass("btn btn-default").addClass("btn btn-success");
