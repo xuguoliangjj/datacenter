@@ -33,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'app_id',
             'app_secret',
             'app_code',
-            'tbl_prefix',
             'version',
             'created_at',
             'updated_at',
             'cp_id',
             'active',
+            'api_url'
         ],
     ]) ?>
 

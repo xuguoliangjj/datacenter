@@ -2,6 +2,10 @@
  * Created by xuguoliang on 2015/11/22.
  */
 $(function(){
+    var requestList = {
+        adp:"/main/default/adp.html",
+        avp:"/main/default/avp.html"
+    }
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         //当前点击的tag
         var curr  = e.target;
@@ -13,6 +17,9 @@ $(function(){
         var tab_pane        = tab_content.children('.tab-pane').eq(index);
         //处理tab内的highchart图
         var chart_div     = tab_pane.children('.own-chart');
+        if(chart_div.children().find('.loading').length != 0){
+            return;
+        }
         //触发一个重绘事件
         var highchart_div = chart_div.find('.own-highchart');
         if(highchart_div != undefined) {
@@ -63,7 +70,7 @@ $(function(){
         $.ajax({
             type:"post",
             data:params,
-            url:"/main/default/adp.html",
+            url:requestList.adp,
             beforeSend:function(){
                 g.loading("adp-chart");
             },
@@ -129,7 +136,7 @@ $(function(){
         $.ajax({
             type:"post",
             data:params,
-            url:"/main/default/avp.html",
+            url:requestList.avp,
             beforeSend:function(){
                 g.loading("avp-chart");
             },

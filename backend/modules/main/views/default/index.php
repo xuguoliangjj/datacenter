@@ -3,6 +3,7 @@ use yii\bootstrap\Tabs;
 $this->title = '新增玩家';
 $this->params['breadcrumbs'][] = ['label'=>$this->title];
 ?>
+<?= $this -> context -> renderPartial('@backend/views/layouts/_filter');?>
 <div class="panel panel-default own-panel">
     <div class="panel-heading">
         新增玩家

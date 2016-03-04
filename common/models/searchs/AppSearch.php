@@ -19,7 +19,7 @@ class AppSearch extends app
     {
         return [
             [['id', 'created_at', 'updated_at', 'cp_id', 'active'], 'integer'],
-            [['app_name', 'app_id', 'app_secret', 'app_code', 'tbl_prefix', 'version'], 'safe'],
+            [['app_name', 'app_id', 'app_secret', 'app_code', 'version'], 'safe'],
         ];
     }
 
@@ -67,7 +67,6 @@ class AppSearch extends app
             ->andFilterWhere(['like', 'app_id', $this->app_id])
             ->andFilterWhere(['like', 'app_secret', $this->app_secret])
             ->andFilterWhere(['like', 'app_code', $this->app_code])
-            ->andFilterWhere(['like', 'tbl_prefix', $this->tbl_prefix])
             ->andFilterWhere(['like', 'version', $this->version]);
 
         return $dataProvider;
