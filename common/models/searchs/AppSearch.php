@@ -5,12 +5,12 @@ namespace common\models\searchs;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\app;
+use common\models\App;
 
 /**
  * AppSearch represents the model behind the search form about `common\models\app`.
  */
-class AppSearch extends app
+class AppSearch extends App
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class AppSearch extends app
      */
     public function search($params)
     {
-        $query = app::find();
+        $query = App::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

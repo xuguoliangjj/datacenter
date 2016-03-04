@@ -5,12 +5,12 @@ namespace common\models\searchs;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\channel;
+use common\models\Channel;
 
 /**
  * ChannelSearch represents the model behind the search form about `common\models\channel`.
  */
-class ChannelSearch extends channel
+class ChannelSearch extends Channel
 {
     /**
      * @inheritdoc
@@ -41,7 +41,7 @@ class ChannelSearch extends channel
      */
     public function search($params)
     {
-        $query = channel::find();
+        $query = Channel::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
