@@ -115,11 +115,11 @@ $(function(){
         });
     }
 
-    $(':checkbox').iCheck({
-        checkboxClass: 'icheckbox_square-grey',
-        radioClass: 'iradio_square-grey',
-        increaseArea:'20%'
-    });
+    //$(':checkbox').iCheck({
+    //    checkboxClass: 'icheckbox_square-grey',
+    //    radioClass: 'iradio_square-grey',
+    //    increaseArea:'20%'
+    //});
     //左侧菜单
     $("#menu").metisMenu({});
     //重新渲染highcharts

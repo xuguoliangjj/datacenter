@@ -4,7 +4,7 @@ use yii\bootstrap\NavBar;
 ?>
 <?php
 NavBar::begin([
-    'brandLabel' => '数据分析平台',
+    'brandLabel' => '挖掘机技术数据分析平台',
     'brandUrl' => Yii::$app->homeUrl,
     'innerContainerOptions'=>['class'=>'container-fluid'],
     'options' => [
@@ -29,15 +29,10 @@ if(!Yii::$app->user->isGuest) {
         'items' => $this->context->topMenu,
     ]);
 }
-
-
 echo Nav::widget([
     'encodeLabels'=>false,
     'options' => ['class' => 'navbar-nav navbar-right'],
     'items' => $menuItems,
 ]);
-
-
-
 NavBar::end();
 ?>

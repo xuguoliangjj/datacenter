@@ -1,24 +1,21 @@
 html,
 body {
+    margin: 0px;
     height: 100%;
 }
 
 .wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+    height: 100%;
 }
 
-.wrap > .container {
-
-}
 
 .footer {
     height: 60px;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .jumbotron {
@@ -98,8 +95,9 @@ a.desc:after {
     background: rgb(34, 34, 34) none repeat scroll 0% 0%;
 }
 
-.own-menu-bar,.own-search-bar{
+.own-left-bar{
     padding: 0px;
+    background: #333333;
 }
 
 .own-menu-bar{

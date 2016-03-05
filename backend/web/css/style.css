@@ -118,3 +118,15 @@ input,button,a {
 #own-platform .label,#own-server .label,#own-channel .label{
     margin-right: 2px;
 }
+
+.own-left-bar{
+    position: fixed;
+    top: 50px;
+    height: 100%;
+    overflow: auto;
+}
+
+.own-main-bar{
+    float: right;
+    margin-top: 50px;
+}
