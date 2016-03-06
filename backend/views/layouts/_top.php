@@ -8,7 +8,7 @@ NavBar::begin([
     'brandUrl' => Yii::$app->homeUrl,
     'innerContainerOptions'=>['class'=>'container-fluid'],
     'options' => [
-        'class' => 'navbar-inverse navbar-static-top own-navbar-top',
+        'class' => 'navbar-inverse navbar-static-top own-navbar-top navbar-fixed-top',
     ],
 ]);
 if (Yii::$app->user->isGuest) {

@@ -20,7 +20,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div id="own-header" class="navbar-fixed-top">
+<div id="own-header">
     <?= $this -> context -> renderPartial('@backend/views/layouts/_top');?>
 </div>
 <div class="wrap">

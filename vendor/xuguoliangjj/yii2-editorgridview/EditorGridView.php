@@ -17,7 +17,7 @@ use yii\base\Model;
 class EditorGridView extends GridView
 {
     public $dataColumnClass;
-    public $tableOptions = ["class"=>"table grid-view","cellspacing"=>"0", "width"=>"100%"];
+    public $tableOptions = ["class"=>"table grid-view table-striped table-bordered","cellspacing"=>"0", "width"=>"100%"];
     public $outerTableOptions = ['class'=>'own-table-outer'];
     public $options = ['class'=>'grid-view'];
 
