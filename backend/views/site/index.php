@@ -15,7 +15,7 @@ $this->registerJs('
 ?>
 <div class="container">
     <div class="jumbotron">
-        <h1><?=Yii::$app->user->identity->username?>，欢迎使用数据分析平台!</h1>
+        <h2><?=Yii::$app->user->identity->username?>，欢迎使用挖掘机技术数据分析平台!</h2>
     </div>
     <div class="row">
     <table id="gameList" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -43,7 +43,7 @@ AppAsset::register($this);
             <div class="col-xs-12 col-sm-10 own-main-bar">
                 <?= Breadcrumbs::widget([
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                    'options' => ['class' => 'breadcrumb','style'=>'margin:13px 0px 0px;'],
+                    'options' => ['class' => 'breadcrumb'],
                     'homeLink' => [
                         'label' => '首页',                  // required
                         'url' => '/',                      // optional, will be processed by Url::to()
