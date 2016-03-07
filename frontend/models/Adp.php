@@ -3,6 +3,9 @@
 namespace frontend\models;
 
 use Yii;
+use yii\helpers\Url;
+use yii\web\Link;
+use yii\web\Linkable;
 
 /**
  * This is the model class for table "adp".
@@ -16,6 +19,7 @@ use Yii;
  */
 class Adp extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -51,5 +55,18 @@ class Adp extends \yii\db\ActiveRecord
             'player_num' => Yii::t('app', '新增玩家数'),
             'ymd' => Yii::t('app', '新增日期'),
         ];
+    }
+
+    public function fields()
+    {
+        return [
+            'ymd',
+            'player_num'
+        ];
+    }
+
+    public function extraFields()
+    {
+        return ['id'];
     }
 }

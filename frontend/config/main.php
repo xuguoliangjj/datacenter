@@ -11,10 +11,25 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules'=>[
+        'wjj' => [
+            'class' => 'frontend\modules\wjj\wjjModule'
+        ],
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+        ],
+        'cache' => [
+            'class' => 'yii\caching\Redis',
+            'servers' => [
+                [
+                    'host' => 'server1',
+                    'port' => 11211,
+                    'weight' => 100,
+                ]
+            ],
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
@@ -22,6 +37,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'site'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/avp'],
             ],
         ],
         'db' => [
