@@ -66,13 +66,22 @@ return array (
       '@mdm/admin' => $vendorDir . '/mdmsoft/yii2-admin',
     ),
   ),
-    'xuguoliangjj/yii2-editorgridview' =>
+  'xuguoliangjj/yii2-editorgridview' => 
+  array (
+    'name' => 'xuguoliangjj/yii2-editorgridview',
+    'version' => '0.1',
+    'alias' => 
     array (
-        'name' => 'xuguoliangjj/yii2-editorgridview',
-        'version' => '0.1',
-        'alias' =>
-            array (
-                '@xuguoliangjj/editorgridview' => $vendorDir . '/xuguoliangjj/yii2-editorgridview',
-            ),
+      '@xuguoliangjj/editorgridview' => $vendorDir . '/xuguoliangjj/yii2-editorgridview',
     ),
+  ),
+  'yiisoft/yii2-redis' => 
+  array (
+    'name' => 'yiisoft/yii2-redis',
+    'version' => '2.0.4.0',
+    'alias' => 
+    array (
+      '@yii/redis' => $vendorDir . '/yiisoft/yii2-redis',
+    ),
+  ),
 );

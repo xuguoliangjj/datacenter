@@ -22,14 +22,10 @@ return [
             'enableAutoLogin' => true,
         ],
         'cache' => [
-            'class' => 'yii\caching\Redis',
-            'servers' => [
-                [
-                    'host' => 'server1',
-                    'port' => 11211,
-                    'weight' => 100,
-                ]
-            ],
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',

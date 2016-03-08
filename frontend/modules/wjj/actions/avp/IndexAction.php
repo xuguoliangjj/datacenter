@@ -9,7 +9,6 @@ namespace restAction\avp;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\Query;
 use yii\rest\Action;
 
 class IndexAction extends Action
@@ -54,11 +53,11 @@ class IndexAction extends Action
 
         /* @var $modelClass \yii\db\BaseActiveRecord */
         $modelClass = $this->modelClass;
-        $query      = new Query();
-        $query      -> select(['id']);
-        return new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => $modelClass::find(),
         ]);
+
+        return $dataProvider;
     }
 
 }
