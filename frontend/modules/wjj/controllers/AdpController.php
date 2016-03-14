@@ -14,9 +14,9 @@ use yii\web\Response;
 /**
  * Site controller
  */
-class AvpController extends ActiveController
+class AdpController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Avp';
+    public $modelClass = 'frontend\models\Adp';
     /**
      * @inheritdoc
      */
@@ -51,12 +51,7 @@ class AvpController extends ActiveController
     {
         return [
             'index' => [
-                'class' => 'restAction\avp\IndexAction',
-                'modelClass'  => $this->modelClass,
-                'checkAccess' => [$this, 'checkAccess'],
-            ],
-            'view' => [
-                'class' => 'restAction\avp\ViewAction',
+                'class' => 'restAction\adp\IndexAction',
                 'modelClass'  => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],

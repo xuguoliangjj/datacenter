@@ -5,7 +5,7 @@
  * Date: 2016/3/7
  * Time: 14:51
  */
-namespace restAction\avp;
+namespace restAction\adp;
 
 use Yii;
 use yii\data\ActiveDataProvider;

@@ -5,7 +5,7 @@ namespace backend\modules\main\controllers;
 use backend\components\BaseController;
 use yii\helpers\Json;
 use yii\web\Response;
-
+use backend\components\Curl;
 class DefaultController extends BaseController
 {
     public function actionIndex()
@@ -19,16 +19,25 @@ class DefaultController extends BaseController
      */
     public function actionAdp()
     {
+        $params_str = http_build_query([
+            'start'    => date('Ymd',strtotime($_POST['starttime'])),
+            'end'      => date('Ymd',strtotime($_POST['endtime'])),
+            'platform' => $_POST['platform'],
+            'channel'  => $_POST['channel'],
+            'server'   => $_POST['server'],
+        ]);
+        $curl = new Curl();
+        $response = $curl -> setOption(CURLOPT_HTTPHEADER , ['Accept:application/json'])
+                          -> get('http://api.loadata.com/wjj/adps?' . $params_str);
+        $data     = Json::decode($response);
         \Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = [123, 11, 122, 21, 124, 172, 182, 192, 121, 211, 232, 82];
-        $max  = max($data);
+        $series     = array_column($data,'player_num');
+        $categories = array_column($data,'ymd');
+        $max  = max($series);
         return [
-            'max'        =>$max,
-            'categories' => [
-                20160201,20160202,20160203,20160204,20160205,20160206,20160207,20160208,20160209,20160210,
-                20160211,20160212
-            ],
-            'series'     =>$data
+            'max'        => $max,
+            'categories' => $categories,
+            'series'     => $series
         ];
     }
 
@@ -38,16 +47,25 @@ class DefaultController extends BaseController
      */
     public function actionAvp()
     {
+        $params_str = http_build_query([
+            'start'    => date('Ymd',strtotime($_POST['starttime'])),
+            'end'      => date('Ymd',strtotime($_POST['endtime'])),
+            'platform' => $_POST['platform'],
+            'channel'  => $_POST['channel'],
+            'server'   => $_POST['server'],
+        ]);
+        $curl = new Curl();
+        $response = $curl -> setOption(CURLOPT_HTTPHEADER , ['Accept:application/json'])
+                          -> get('http://api.loadata.com/wjj/avps?' . $params_str);
+        $data     = Json::decode($response);
         \Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = [111, 11, 112, 23, 23, 44, 66, 192, 12, 22, 222, 122];
-        $max  = max($data);
+        $series     = array_column($data,'player_num');
+        $categories = array_column($data,'ymd');
+        $max  = max($series);
         return [
-            'max'        =>$max,
-            'categories' => [
-                20160201,20160202,20160203,20160204,20160205,20160206,20160207,20160208,20160209,20160210,
-                20160211,20160212
-            ],
-            'series'     =>$data
+            'max'        => $max,
+            'categories' => $categories,
+            'series'     => $series
         ];
     }
 }

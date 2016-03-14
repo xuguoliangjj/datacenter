@@ -32,7 +32,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'site'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/adp'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/avp'],
             ],
         ],
