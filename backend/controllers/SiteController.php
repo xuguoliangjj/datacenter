@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use common\models\App;
+use common\models\searchs\AppSearch;
 use Yii;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -56,8 +58,22 @@ class SiteController extends BaseController
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel  = new AppSearch();
+        $dataProvider = $searchModel -> search(Yii::$app->request->post());
+        return $this->render('index',[
+            'searchModel'  => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
+
+    public function actionSelect($app_id,$app_secret)
+    {
+        $session = Yii::$app->session;
+        $model   = App::findOne(['app_id'=>$app_id,'app_secret'=>$app_secret]);
+        $session['api_url'] = $model -> api_url;
+        $this -> redirect(['main/default']);
+    }
+
 
     public function actionAbout()
     {

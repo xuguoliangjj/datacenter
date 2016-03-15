@@ -1,54 +1,27 @@
 <?php
 /* @var $this yii\web\View */
 ?>
-<?php
-$this->registerJs('
-    $("#gameList").DataTable({
-				searching:false,
-				info:false,
-				language: {
-                "sLengthMenu": "",
-
-				}
-			});
-');
-?>
 <div class="container">
     <div class="jumbotron">
         <h2><?=Yii::$app->user->identity->username?>，欢迎使用挖掘机技术数据分析平台!</h2>
     </div>
     <div class="row">
-    <table id="gameList" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th>游戏名称</th>
-            <th>设备激活</th>
-            <th>玩家</th>
-            <th>游戏次数</th>
-            <th>收入</th>
-            <th>报表</th>
-        </tr>
-        </thead>
+        <?php
+        echo \xuguoliangjj\editorgridview\EditorGridView::widget([
+            'dataProvider'=>$dataProvider,
+            'summary'=>'',
+            'columns'=>[
+                ['attribute'=>'app_name','label'=>'应用名称','format'=>'raw','value'=>function($data){
+                    return \yii\helpers\Html::a($data->app_name,['/site/select','app_id'=>$data->app_id,'app_secret'=>$data->app_secret]);
+                }],
+                ['attribute'=>'app_id','label'=>'应用ID'],
+                ['attribute'=>'app_code','label'=>'应用简写'],
+                ['attribute'=>'version','label'=>'版本'],
+                ['attribute'=>'created_at','label'=>'创建时间','format'=>['date', 'php:Y-m-d']],
+                ['attribute'=>'api_url','label'=>'数据接口'],
+            ]
+        ]);
 
-
-        <tbody>
-        <tr>
-            <td>测试游戏1</td>
-            <td>1241</td>
-            <td>123211</td>
-            <td>1122</td>
-            <td>$12345633</td>
-            <td>--</td>
-        </tr>
-        <tr>
-            <td>测试游戏2</td>
-            <td>1322</td>
-            <td>123211</td>
-            <td>1122</td>
-            <td>$12345633</td>
-            <td>--</td>
-        </tr>
-        </tbody>
-    </table>
-        </div>
+        ?>
+     </div>
 </div>

@@ -1,6 +1,6 @@
 .breadcrumb{
     border-radius: 0px;
-    margin: 15px 0px 8px;
+    margin: 8px 0px 8px;
 }
 .panel{
     border-radius: 0px;
@@ -129,5 +129,8 @@ input,button,a {
 
 .own-main-bar{
     float: right;
-    margin-top: 50px;
+}
+
+.own-container-fluid{
+    margin-top: 60px;
 }

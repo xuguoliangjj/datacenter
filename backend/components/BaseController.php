@@ -23,6 +23,8 @@ class BaseController extends Controller
     public $defaultIcon = '';
     //默认显示菜单图标
     public $activeIcon = true;
+    //数据接口
+    public $api_url;
 
     public function init()
     {
@@ -36,8 +38,8 @@ class BaseController extends Controller
         }else if(Yii::$app->session->hasFlash('fail')){
             $msg = Yii::$app->session->getFlash('fail');
             $this->getView()->registerJs("
-            layer.msg(\"$msg\", {icon: 5});
-");
+                layer.msg(\"$msg\", {icon: 5});
+            ");
         }
     }
 
@@ -46,6 +48,10 @@ class BaseController extends Controller
         if(Yii::$app->user->isGuest && $this->route != 'site/login')
         {
             $this ->redirect(['/site/login']);
+        }
+        if($this->module->id == 'main' && Yii::$app->session['api_url'] == NULL)
+        {
+            $this ->redirect(['/site/index']);
         }
         $this -> authRoute();
         $menus = Yii::$app->params['menu'];
@@ -90,7 +96,7 @@ class BaseController extends Controller
         $arr   = explode('/',trim($route,'/'));
         if(!Yii::$app->user->can('/*') && !Yii::$app->user->can('/'.$arr[0].'/'.$arr[1].'/*') && !Yii::$app->user->can($route)){
             return false;
-        }else{
+        } else {
             return true;
         }
     }

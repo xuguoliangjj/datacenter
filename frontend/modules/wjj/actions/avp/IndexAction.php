@@ -32,20 +32,20 @@ class IndexAction extends Action
     /**
      * @return ActiveDataProvider
      */
-    public function run($start,$end,$channel,$platform,$server)
+    public function run($starttime,$endtime,$channel,$platform,$server)
     {
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id);
         }
 
-        return $this->prepareDataProvider($start,$end,$channel,$platform,$server);
+        return $this->prepareDataProvider($starttime,$endtime,$channel,$platform,$server);
     }
 
     /**
      * Prepares the data provider that should return the requested collection of the models.
      * @return ActiveDataProvider
      */
-    protected function prepareDataProvider($start,$end,$channel,$platform,$server)
+    protected function prepareDataProvider($starttime,$endtime,$channel,$platform,$server)
     {
         if ($this->prepareDataProvider !== null) {
             return call_user_func($this->prepareDataProvider, $this);
@@ -54,8 +54,8 @@ class IndexAction extends Action
         /* @var $modelClass \yii\db\BaseActiveRecord */
         $modelClass = $this->modelClass;
         $query      = $modelClass::find();
-        $query -> andWhere(['>=','ymd',$start]);
-        $query -> andWhere(['<=','ymd',$end]);
+        $query -> andWhere(['>=','ymd',$starttime]);
+        $query -> andWhere(['<=','ymd',$endtime]);
         $query -> andFilterWhere(['channel'  => $channel]);
         $query -> andFilterWhere(['platform' => $platform]);
         $query -> andFilterWhere(['server'   => $server]);
