@@ -10,8 +10,8 @@ return [
     'menu'=>[
         'fronted'=> ['label'=>'数据统计','items'=>[
                 ['icon'=>'glyphicon glyphicon-user','label' => '玩家分析','items' => [
-                    ['label' => '新增玩家', 'url' => ['/main/default']],
-                    ['label' => '活跃玩家', 'url' => ['/product/index2']],
+                    ['label' => '新增玩家', 'url' => ['/main/add']],
+                    ['label' => '活跃玩家', 'url' => ['/main/active']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
                     ['label' => '实时在线', 'url' => ['/site/indsex']],

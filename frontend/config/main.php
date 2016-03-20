@@ -7,14 +7,14 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-frontend',
+    'id' => 'rest api',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'modules'=>[
         'wjj' => [
             'class' => 'frontend\modules\wjj\wjjModule'
-        ],
+        ]
     ],
     'components' => [
         'user' => [
@@ -30,7 +30,7 @@ return [
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'showScriptName'  => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/adp'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/avp'],
@@ -38,9 +38,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=115.28.39.138;dbname=wjj',
-            'username' => 'xuguoliang',
-            'password' => 'xuguoliang!@#',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=wjj',
+            'username' => 'root',
+            'password' => '123456',
             'charset' => 'utf8',
         ],
         'log' => [
