@@ -18,9 +18,9 @@ $(function(){
         var tab_pane        = tab_content.children('.tab-pane').eq(index);
         //处理tab内的highchart图
         var chart_div     = tab_pane.children('.own-chart');
-        if(chart_div.children().find('.loading').length != 0){
-            return;
-        }
+        //if(chart_div.children().find('.loading').length != 0){
+        //    return;
+        //}
         //触发一个重绘事件
         var highchart_div = chart_div.find('.own-highchart');
         if(highchart_div != undefined) {
@@ -64,17 +64,20 @@ $(function(){
     },
     Graphic.prototype.refresh_add_player = function(params){
         var g = this;
-        $.ajax({
+        if($.fn.ajaxList.adp) $.fn.ajaxList.adp.abort();
+        $.fn.ajaxList.adp = $.ajax({
             type:"post",
             data:params,
             url:requestList.adp,
             beforeSend:function(){
+                $("#adp .loading").remove();
                 g.loading("adp-chart");
             },
             complete:function(){
-                $("#adp > .loading").remove();
+                $("#adp .loading").remove();
             },
             success:function(json){
+
                 $('#adp-chart').highcharts({
                     chart : {
                         type : 'line'
@@ -130,15 +133,17 @@ $(function(){
         });
     },Graphic.prototype.refresh_activate_player=function(params){
         var g = this;
-        $.ajax({
+        if($.fn.ajaxList.avp) $.fn.ajaxList.avp.abort();
+        $.fn.ajaxList.avp = $.ajax({
             type:"post",
             data:params,
             url:requestList.avp,
             beforeSend:function(){
+                $("#avp .loading").remove();
                 g.loading("avp-chart");
             },
             complete:function(){
-                $("#adp > .loading").remove();
+                $("#avp .loading").remove();
             },
             success:function(json){
                 $('#avp-chart').highcharts({
@@ -196,15 +201,17 @@ $(function(){
         });
     },Graphic.prototype.refresh_dau_player = function(params){
         var g = this;
-        $.ajax({
+        if($.fn.ajaxList.dau) $.fn.ajaxList.dau.abort();
+        $.fn.ajaxList.dau = $.ajax({
             type:"post",
             data:params,
             url:requestList.dau,
             beforeSend:function(){
+                $("#dau .loading").remove();
                 g.loading("dau-chart");
             },
             complete:function(){
-                $("#dau > .loading").remove();
+                $("#dau .loading").remove();
             },
             success:function(json){
                 $('#dau-chart').highcharts({

@@ -37,6 +37,7 @@ $.extend({
 $.fn.platform = [];
 $.fn.channel  = [];
 $.fn.server   = [];
+$.fn.ajaxList = [];
 $(function(){
     var Global = function(){
     };

@@ -71,7 +71,7 @@ class SiteController extends BaseController
         $session = Yii::$app->session;
         $model   = App::findOne(['app_id'=>$app_id,'app_secret'=>$app_secret]);
         $session['api_url'] = $model -> api_url;
-        $this -> redirect(['main/default']);
+        $this -> redirect(['main/add']);
     }
 
 

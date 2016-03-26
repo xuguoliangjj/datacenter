@@ -34,6 +34,7 @@ return [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/adp'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/avp'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/dau'],
             ],
         ],
         'db' => [

@@ -27,7 +27,7 @@ class DauController extends ActiveController
                 'class' => ContentNegotiator::className(),
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
-                    'application/xml' => Response::FORMAT_XML,
+                    //'application/xml' => Response::FORMAT_XML,
                 ],
             ],
             'verbFilter' => [
@@ -51,7 +51,7 @@ class DauController extends ActiveController
     {
         return [
             'index' => [
-                'class' => 'restAction\adp\IndexAction',
+                'class' => 'restAction\dau\IndexAction',
                 'modelClass'  => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
