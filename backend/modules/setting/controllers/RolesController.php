@@ -24,13 +24,15 @@ class RolesController extends BaseController
 
     public function actionCreate()
     {
+        $rules = ArrayHelper::merge([''=>'NONE'],ArrayHelper::map(Yii::$app->getAuthManager()->getRules(),'name','name'));
         $model = new AuthItem();
         $model->type=Item::TYPE_ROLE;             //角色
         if($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             return $this->redirect(['view','id'=>$model->name]);
         }else{
             return $this->render('create',[
-                'model'=>$model
+                'model'=>$model,
+                'rules'=>$rules
             ]);
         }
     }
@@ -113,7 +115,18 @@ class RolesController extends BaseController
                 }
             }
         }
-        return $this->render('view',['result'=>$result,'model'=>$model]);
+        $routes = [];
+        foreach($result['Routes'] as $key => $name){
+            $arr = explode('/',$key);
+            array_shift($arr);
+            $build_key = $arr[0] . '_' . (isset($arr[1]) ? $arr[1] : '');
+            $routes[$build_key][$key] = $name;
+        }
+        return $this->render('view',[
+            'result'=>$result,
+            'model'=>$model,
+            'routes'=>$routes
+        ]);
     }
 
     protected function findModel($id)

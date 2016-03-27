@@ -26,7 +26,7 @@ class RouteController extends BaseController
         if($model->load(Yii::$app->request->post()))
         {
             //按照逗号分隔数组
-            $routes = preg_split('/\s*,\s*/', trim($model->route), -1, PREG_SPLIT_NO_EMPTY);
+            $routes       = preg_split('/\s*,\s*/', trim($model->route), -1, PREG_SPLIT_NO_EMPTY);
             $descriptions = preg_split('/\s*,\s*/', trim($model->description), -1, PREG_SPLIT_NO_EMPTY);
             if($model->save($routes,$descriptions)){
                 Yii::$app->session->setFlash('success','添加路由成功');
@@ -52,12 +52,24 @@ class RouteController extends BaseController
                 Yii::$app->session->setFlash('success','修改成功');
                 $this->redirect(['index']);
             }else{
-                Yii::$app->session->setFlash('success','修改失败');
+                Yii::$app->session->setFlash('fail','修改失败');
                 $this->redirect(['update']);
             }
 
         }
         return $this->render('update',['model'=>$model]);
+    }
+
+    public function actionDelete($id)
+    {
+        $model = new Route();
+        if($model ->delete($id)){
+            Yii::$app->session->setFlash('success','删除成功');
+            $this->redirect(['index']);
+        }else{
+            Yii::$app->session->setFlash('fail','删除失败');
+            $this->redirect(['index']);
+        }
     }
 
 }

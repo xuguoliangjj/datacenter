@@ -17,6 +17,10 @@ $this->params['breadcrumbs'] = \backend\components\Tools::buildBreadcrumbs($this
         </span>
     </div>
     <div class="panel-body">
-        <?= $this->render('_auth_form',['model'=>$model,'result'=>$result])?>
+        <?= $this->render('_auth_form',[
+            'model' =>$model,
+            'result'=>$result,
+            'routes'=>$routes
+        ])?>
     </div>
 </div>

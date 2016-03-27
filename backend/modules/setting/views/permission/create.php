@@ -18,7 +18,8 @@ $this->params['breadcrumbs'] = \backend\components\Tools::buildBreadcrumbs($this
     </div>
     <div class="panel-body">
         <?= $this->render('_form',[
-            'model'=>$model
+            'model'=>$model,
+            'rules'=>$rules
         ])?>
     </div>
 </div>

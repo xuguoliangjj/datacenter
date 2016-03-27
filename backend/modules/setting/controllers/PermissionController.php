@@ -28,12 +28,13 @@ class PermissionController extends BaseController
 
     public function actionCreate()
     {
+        $rules = ArrayHelper::merge([''=>'NONE'],ArrayHelper::map(Yii::$app->getAuthManager()->getRules(),'name','name'));
         $model = new AuthItem();
         $model->type=Item::TYPE_PERMISSION;
         if($model->load(Yii::$app->request->post()) && $model->save()){
             return $this->redirect(['view','id'=>$model->name]);
         }else {
-            return $this->render('create',['model'=>$model]);
+            return $this->render('create',['model'=>$model,'rules'=>$rules]);
         }
     }
 

@@ -72,6 +72,13 @@ class Route extends Model{
         }
     }
 
+    public function delete($route)
+    {
+        $auth = Yii::$app->authManager;
+        $item = $auth -> getPermission($route);
+        return $auth -> remove($item);
+    }
+
     public function search()
     {
         $auth = Yii::$app->authManager;

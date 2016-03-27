@@ -13,7 +13,7 @@ use \yii\helpers\Html;
 
 <?= $form->field($model, 'name') ?>
 <?= $form->field($model, 'description')->textarea()?>
-<?= $form->field($model, 'ruleName') ?>
+<?= $form->field($model, 'ruleName')->dropDownList($rules) ?>
 <?= $form->field($model, 'data')->textarea()?>
 
 <div class="form-group">
