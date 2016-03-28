@@ -22,7 +22,7 @@ use \yii\helpers\Html;
     ?>
     <?= $form->field($model, 'routes',['parts'=>[
         '{label}'=>$label
-    ]])->checkboxList($items); ?>
+    ]])->checkboxList($items,['unselect'=>null]); ?>
 
 <?php endforeach;?>
 <?= $form->field($model, 'permissions')->checkboxList($result['Permissions']); ?>
