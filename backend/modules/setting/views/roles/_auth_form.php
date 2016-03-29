@@ -17,13 +17,15 @@ use \yii\helpers\Html;
             $label = Html::activeLabel($model, 'routes', ['class' => 'control-label']);
             $flag  = 0;
         }else{
-            $label = '<hr>';
+            $label = '';
         }
     ?>
-    <?= $form->field($model, 'routes',['parts'=>[
-        '{label}'=>$label
-    ]])->checkboxList($items,['unselect'=>null]); ?>
-
+    <?= $form->field($model, 'routes',['parts'=>['{label}'=>$label]])->checkboxList($items,
+        [
+            'unselect'=>null,
+            'class'=>'own-routes-list'
+        ]
+    ); ?>
 <?php endforeach;?>
 <?= $form->field($model, 'permissions')->checkboxList($result['Permissions']); ?>
     <div class="form-group">

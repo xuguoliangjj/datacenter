@@ -2,6 +2,7 @@
 
 namespace backend\modules\setting\controllers;
 use backend\components\BaseController;
+use backend\components\Tools;
 use backend\modules\setting\models\RoleAuthForm;
 use backend\modules\setting\models\searchs\AuthItemSearch;
 use backend\modules\setting\models\AuthItem;
@@ -115,13 +116,7 @@ class RolesController extends BaseController
                 }
             }
         }
-        $routes = [];
-        foreach($result['Routes'] as $key => $name){
-            $arr = explode('/',$key);
-            array_shift($arr);
-            $build_key = $arr[0] . '_' . (isset($arr[1]) ? $arr[1] : '');
-            $routes[$build_key][$key] = $name;
-        }
+        $routes = Tools::serializeRoutes($result['Routes']);
         return $this->render('view',[
             'result'=>$result,
             'model'=>$model,

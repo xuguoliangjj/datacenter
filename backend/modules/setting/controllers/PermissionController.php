@@ -3,6 +3,7 @@
 namespace backend\modules\setting\controllers;
 
 use \backend\components\BaseController;
+use backend\components\Tools;
 use backend\modules\setting\models\AuthPermissionForm;
 use backend\modules\setting\models\AuthItem;
 use backend\modules\setting\models\searchs\AuthItemSearch;
@@ -92,8 +93,8 @@ class PermissionController extends BaseController
                 $model -> permissions[$item->name] = $item ->name;
             }
         }
-
-        return $this->render('view',['model'=>$model,'result'=>$result]);
+        $routes = Tools::serializeRoutes($result['Routes']);
+        return $this->render('view',['model'=>$model,'routes'=>$routes,'permissions'=>$result['Permissions']]);
     }
 
     public function actionDelete($id)
@@ -110,6 +111,7 @@ class PermissionController extends BaseController
 
     public function actionUpdate($id)
     {
+        $rules = ArrayHelper::merge([''=>'NONE'],ArrayHelper::map(Yii::$app->getAuthManager()->getRules(),'name','name'));
         $item = Yii::$app->authManager->getPermission($id);
         $model = new AuthItem($item);
         if($model -> load(Yii::$app->request->post()) && $model -> save()){
@@ -117,7 +119,8 @@ class PermissionController extends BaseController
             $this -> redirect(['index']);
         }
         return $this->render('update',[
-            'model'=>$model
+            'model'=>$model,
+            'rules'=>$rules
         ]);
     }
 }

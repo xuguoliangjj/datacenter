@@ -15,8 +15,8 @@
     border-radius: 0px;
 }
 #roleauthform-routes label,#assignmentform-permissions label,#authpermissionform-routes label{
-    width:20%;
     display: inline-block;
+    width: 23%;
 }
 
 .own-panel .nav-pills{
@@ -133,4 +133,12 @@ input,button,a {
 
 .own-container-fluid{
     margin-top: 60px;
+}
+
+.own-routes-list{
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    margin: 0px;
+    padding-top: 3px;
+    padding-left: 10px;
 }

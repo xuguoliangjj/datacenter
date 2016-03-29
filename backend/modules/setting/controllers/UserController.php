@@ -3,6 +3,7 @@
 namespace backend\modules\setting\controllers;
 
 use \backend\components\BaseController;
+use backend\components\Tools;
 use backend\modules\setting\models\AssignmentForm;
 use backend\modules\setting\models\searchs\UserSearch;
 use yii\helpers\ArrayHelper;
@@ -70,7 +71,7 @@ class UserController extends BaseController
                 $model -> roles[$name] = $name;
             }
         }
-
+        $permissions = Tools::serializeRoutes($permissions);
         return $this->render('view',[
             'model'=>$model,
             'roles'=>$roles,

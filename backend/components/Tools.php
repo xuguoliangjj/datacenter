@@ -4,6 +4,7 @@
  * User: lenovo
  * Date: 2015/8/16
  * Time: 18:51
+ * @author xuguoliang <1044748759@qq.com>
  */
 namespace backend\components;
 use \yii\base\Object;
@@ -29,4 +30,22 @@ class Tools extends Object
         }
         return $breadCrumbs;
     }
+
+    /**
+     * 将路由数组按照规则分组
+     * @param $routes
+     * @return array
+     */
+    public static function serializeRoutes($routes)
+    {
+        $result = [];
+        foreach($routes as $key => $name){
+            $arr = explode('/',$key);
+            array_shift($arr);
+            $build_key = $arr[0] . '_' . (isset($arr[1]) ? $arr[1] : '');
+            $result[$build_key][$key] = $name;
+        }
+        return $result;
+    }
+
 }
