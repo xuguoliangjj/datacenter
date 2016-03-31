@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/backend/views/layouts/full.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/.gitattributes" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/.gitignore" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/.npmignore" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/.travis.yml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/LICENSE" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/README.md" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/bower.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/build" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/less" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/minify.sh" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/package.json" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/sample in bootstrap v2" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/sample in bootstrap v3" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/screenshot" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/backend/web/js/bootstrap-datetimepicker/tests" charset="GBK" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
 </project>
