@@ -75,8 +75,6 @@ class BaseController extends Controller
     //验证是否有权限
     private function authRoute()
     {
-        if(Yii::$app->request->isAjax)
-            return true;
         if(count(explode('/',$this->route)) == 3 && $this->action->id == 'index'){
             $route = trim(str_replace('index','',$this -> route),'/');
         }else{
