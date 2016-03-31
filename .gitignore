@@ -1,2 +1,5 @@
 /.idea
+/.settings
+.buildpath
+.project
 !.gitignore
