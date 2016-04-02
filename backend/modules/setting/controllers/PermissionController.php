@@ -68,6 +68,12 @@ class PermissionController extends BaseController
                         $authManager->addChild($parent, $child);
                     }
                 }
+                if (is_array($model->app)) {
+                    foreach ($model->app as $item) {
+                        $child = $authManager->getPermission($item);
+                        $authManager->addChild($parent, $child);
+                    }
+                }
             }catch (\Exception $e){
                 Yii::$app ->session->setFlash('fail',$e->getMessage());
                 $this -> refresh();
@@ -82,19 +88,32 @@ class PermissionController extends BaseController
                 continue;
             }
             if (empty($term) or strpos($name, $term) !== false) {
-                $result[$name[0] === '/' ? 'Routes' : 'Permissions'][$name] = $role->description;
+                if(substr($name,0,3) === 'app'){
+                    $result['App'][$name] = $role->description;
+                }elseif($name[0] === '/'){
+                    $result['Routes'][$name] = $role->description;
+                }else{
+                    $result['Permissions'][$name] = $role->description;
+                }
             }
         }
 
         foreach($authManager -> getChildren($id) as $name => $item){
-            if($item->name[0] === '/'){
-                $model -> routes[$item->name] = $item->name;
+            if(substr($name,0,3) === 'app'){
+                $model->app[$name]    = $name;
+            }elseif($name[0] === '/'){
+                $model->routes[$name] = $name;
             }else{
-                $model -> permissions[$item->name] = $item ->name;
+                $model->permissions   = $name;
             }
         }
         $routes = Tools::serializeRoutes($result['Routes']);
-        return $this->render('view',['model'=>$model,'routes'=>$routes,'permissions'=>$result['Permissions']]);
+        return $this->render('view',[
+            'model'=>$model,
+            'routes'=>$routes,
+            'permissions'=>$result['Permissions'],
+            'app'=>$result['App']
+        ]);
     }
 
     public function actionDelete($id)

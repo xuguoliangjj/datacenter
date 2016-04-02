@@ -69,7 +69,7 @@ class RolesController extends BaseController
                     $model->$key=[];
                 }
             }
-            $roles = ArrayHelper::merge($model->roles,$model->routes,$model->permissions);
+            $roles = ArrayHelper::merge($model->roles,$model->routes,$model->permissions,$model->app);
             $manager = Yii::$app->getAuthManager();
             $parent = $manager->getRole($id);
             $manager->removeChildren($parent);
@@ -86,9 +86,10 @@ class RolesController extends BaseController
 
         }
         $result = [
-            'Roles' => [],
+            'Roles'       => [],
             'Permissions' => [],
-            'Routes' => [],
+            'Routes'      => [],
+            'App'         => []
         ];
         $authManager = Yii::$app->authManager;
         $children = array_keys($authManager->getChildren($id));
@@ -100,26 +101,34 @@ class RolesController extends BaseController
         }
         foreach ($authManager->getPermissions() as $name => $role) {
             if (empty($term) or strpos($name, $term) !== false) {
-                $result[$name[0] === '/' ? 'Routes' : 'Permissions'][$name] = $role->description;
+                if(substr($name,0,3) === 'app'){
+                    $result['App'][$name] = $role->description;
+                }elseif($name[0] === '/'){
+                    $result['Routes'][$name] = $role->description;
+                }else{
+                    $result['Permissions'][$name] = $role->description;
+                }
             }
         }
-
         foreach ($authManager->getChildren($id) as $name => $child) {
             if (empty($term) or strpos($name, $term) !== false) {
                 if ($child->type == Item::TYPE_ROLE) {
-                    $model->roles[$name] = $name;
+                    $model->roles[$name]      = $name;
                 } else {
-                    if($name[0] === '/')
-                        $model->routes[$name]=$name;
-                    else
-                        $model->permissions[$name]=$name;
+                    if(substr($name,0,3) === 'app'){
+                        $model->app[$name]    = $name;
+                    }elseif($name[0] === '/'){
+                        $model->routes[$name] = $name;
+                    }else{
+                        $model->permissions   = $name;
+                    }
                 }
             }
         }
         $routes = Tools::serializeRoutes($result['Routes']);
         return $this->render('view',[
             'result'=>$result,
-            'model'=>$model,
+            'model' =>$model,
             'routes'=>$routes
         ]);
     }

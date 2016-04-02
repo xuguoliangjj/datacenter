@@ -10,6 +10,7 @@ use \yii\helpers\Html;
 ?>
 <?php $form = ActiveForm::begin(['id' => 'auth-role-form']); ?>
 <?= $form->field($model, 'roles')->checkboxList($result['Roles']); ?>
+<?= $form->field($model, 'app')->checkboxList($result['App']); ?>
 <?php $flag = 1;?>
 <?php foreach($routes as $items):?>
     <?php

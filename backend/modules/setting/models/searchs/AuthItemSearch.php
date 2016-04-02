@@ -51,7 +51,7 @@ class AuthItemSearch extends Model
             if ($this->type == Item::TYPE_PERMISSION) {
                 foreach ($auth->getPermissions() as $name => $item) {
                     //name的第一个字符不是'/'的就是权限组名
-                    if ($name[0] !== '/') {
+                    if ($name[0] !== '/' && substr($name,0,3) != 'app') {
                         $items[$name] = $item;
                     }
                 }

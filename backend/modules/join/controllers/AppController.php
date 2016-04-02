@@ -63,6 +63,10 @@ class AppController extends BaseController
         $model = new App();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $auth = Yii::$app->authManager;
+            $item = $auth->createPermission('app_'.$model->app_code);
+            $item->description = $model->app_name;
+            $auth->add($item);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

@@ -11,6 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </span>
     </div>
     <div class="panel-body">
-        <?= $this->render('_auth_permission',['model'=>$model,'routes'=>$routes,'permissions'=>$permissions])?>
+        <?= $this->render('_auth_permission',[
+            'model'=>$model,
+            'routes'=>$routes,
+            'permissions'=>$permissions,
+            'app'   =>$app
+        ])?>
     </div>
 </div>

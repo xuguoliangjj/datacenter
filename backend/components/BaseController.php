@@ -7,14 +7,15 @@
  */
 namespace backend\components;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 
 class BaseController extends Controller
 {
-    public $topMenu;    //顶部菜单
-    public $leftMenu;   //左侧二级菜单
+    public $topMenu;         //顶部菜单
+    public $leftMenu;        //左侧二级菜单
 
     /*
      * 默认的菜单图标
@@ -25,9 +26,14 @@ class BaseController extends Controller
     public $activeIcon = true;
     //数据接口
     public $api_url;
+    //应用
+    public $app_code = null;
 
     public function init()
     {
+        if(isset(Yii::$app->session['app_code'])){
+            $this->app_code = Yii::$app->session['app_code'];
+        }
         parent::init();
         $this->getView()->title = '数据分析平台';
         if(Yii::$app->session->hasFlash('success')){
@@ -55,6 +61,13 @@ class BaseController extends Controller
         }
         $this -> authRoute();
         $menus = Yii::$app->params['menu'];
+        if($this->app_code != null)
+        {
+            $tools = require(Yii::getAlias('@backend/config/app/'.$this->app_code.'.php'));
+            if(!$tools)
+                throw new InvalidConfigException('Loss your app config');
+            array_splice($menus,1,0,$tools);
+        }
         $activeTag = '';
         $menus = $this -> normalizeMenu($menus,$activeTag);
         if(isset($menus[$activeTag]['items']))

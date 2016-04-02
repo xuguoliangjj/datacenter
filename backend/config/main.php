@@ -8,7 +8,7 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
+    'id' => 'datacenter',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -18,7 +18,15 @@ return [
             'class' => 'backend\modules\setting\settingModule',
         ],
         'main' => [
-            'class' => 'backend\modules\main\mainModule',
+            'class'   => 'backend\modules\main\mainModule',
+            'modules' => [
+                'wjj' => [
+                    'class' => 'backend\modules\main\modules\wjj\Module'
+                ],
+                'tlj' => [
+                    'class' => 'backend\modules\main\modules\tlj\Module',
+                ]
+            ]
         ],
         //接入管理模块
         'join' => [
