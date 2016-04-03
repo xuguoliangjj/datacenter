@@ -37,7 +37,7 @@ class Curl extends Object
      * Default curl options
      */
     private $_defaultOptions = array(
-        CURLOPT_USERAGENT      => 'Yii2-Curl-Agent',
+        CURLOPT_USERAGENT      => 'Rest-Agent',
         CURLOPT_TIMEOUT        => 30,
         CURLOPT_CONNECTTIMEOUT => 30,
         CURLOPT_RETURNTRANSFER => true,

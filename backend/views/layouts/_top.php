@@ -15,12 +15,25 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
 } else {
     $menuItems[] = [
+        'label' => isset(Yii::$app->session['app_name']) ? Yii::$app->session['app_name'] : '',
+    ];
+    $menuItems[] = [
+        'label' => '中文',
+        'items' => [
+            ['label' => '中文', 'url' => ['/main']],
+            ['label' => '英文', 'url' => ['/main']],
+            ['label' => '韩语', 'url' => ['/main']],
+            ['label' => '日语', 'url' => ['/main']],
+        ]
+    ];
+    $menuItems[] = [
         'label' => '<span class="glyphicon glyphicon-user"></span> '.Yii::$app->user->identity->username,
         'items' => [
             ['label' => '<span class="glyphicon glyphicon-off"></span> 注销登录', 'url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
-            ['label' => '<span class="glyphicon glyphicon-cog"></span> 修改密码','url'=>['/']],
+            ['label' => '<span class="glyphicon glyphicon-cog"></span> 修改密码','url'=>['/site/password']],
         ]
     ];
+
 }
 if(!Yii::$app->user->isGuest) {
     echo Nav::widget([

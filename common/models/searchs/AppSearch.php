@@ -2,6 +2,7 @@
 
 namespace common\models\searchs;
 
+use backend\components\Tools;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -68,6 +69,8 @@ class AppSearch extends App
             ->andFilterWhere(['like', 'app_secret', $this->app_secret])
             ->andFilterWhere(['like', 'app_code', $this->app_code])
             ->andFilterWhere(['like', 'version', $this->version]);
+
+        $query->andWhere(['in','app_code',Tools::getPrevApp()]);
 
         return $dataProvider;
     }

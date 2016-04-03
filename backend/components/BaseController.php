@@ -23,11 +23,11 @@ class BaseController extends Controller
      */
     public $defaultIcon = '';
     //默认显示菜单图标
-    public $activeIcon = true;
+    public $activeIcon  = true;
     //数据接口
     public $api_url;
     //应用
-    public $app_code = null;
+    public $app_code    = null;
 
     public function init()
     {
@@ -36,12 +36,14 @@ class BaseController extends Controller
         }
         parent::init();
         $this->getView()->title = '数据分析平台';
-        if(Yii::$app->session->hasFlash('success')){
+        if(Yii::$app->session->hasFlash('success'))
+        {
             $msg = Yii::$app->session->getFlash('success');
             $this->getView()->registerJs("
             layer.msg(\"$msg\", {icon: 1});
             ");
-        }else if(Yii::$app->session->hasFlash('fail')){
+        }else if(Yii::$app->session->hasFlash('fail'))
+        {
             $msg = Yii::$app->session->getFlash('fail');
             $this->getView()->registerJs("
                 layer.msg(\"$msg\", {icon: 5});
@@ -82,18 +84,19 @@ class BaseController extends Controller
         }
 
         $this -> topMenu = $menus;
-        return true;
+        return parent::beforeAction($action);
     }
 
     //验证是否有权限
     private function authRoute()
     {
-        if(count(explode('/',$this->route)) == 3 && $this->action->id == 'index'){
+        if($this->action->id == 'index'){
             $route = trim(str_replace('index','',$this -> route),'/');
         }else{
             $route = trim($this->route,'/');
         }
-        if(!$this->auth($route)){
+        if(!$this->auth($route))
+        {
             throw new ForbiddenHttpException('没有相关权限，如需开通，请联系管理人员！');
         }else{
             return true;
@@ -102,12 +105,15 @@ class BaseController extends Controller
 
     private function auth($route)
     {
-        if($route == 'site/login' || $route == 'site/error' || $route == 'site/logout'){
+        if($route == 'site/login' || $route == 'site/error' || $route == 'site/logout')
+        {
             return true;
         }
-        $route = '/'.trim($route,'/');
-        $arr   = explode('/',trim($route,'/'));
-        if(!Yii::$app->user->can('/*') && !Yii::$app->user->can('/'.$arr[0].'/'.$arr[1].'/*') && !Yii::$app->user->can($route)){
+        $route      = '/'.trim($route,'/');
+        $arr        = explode('/',trim($route,'/'));
+        $auth_route = $arr[0] == $this->id ? $arr[0].'/*' : $route.'/*';
+        if(!Yii::$app->user->can('/*') && !Yii::$app->user->can($auth_route) && !Yii::$app->user->can($route))
+        {
             return false;
         } else {
             return true;

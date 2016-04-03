@@ -48,4 +48,22 @@ class Tools extends Object
         return $result;
     }
 
+    /**
+     * 获取当前登录用户拥有权限的项目
+     * @return array
+     */
+    public static function getPrevApp()
+    {
+        $apps = [];
+        $authManager = Yii::$app->authManager;
+        foreach ($authManager->getPermissionsByUser(Yii::$app->user->id) as $name => $role) {
+            if (empty($term) or strpos($name, $term) !== false) {
+                if(substr($name,0,3) === 'app'){
+                    $apps[] = substr($name,4,strlen($name));
+                }
+            }
+        }
+        return $apps;
+    }
+
 }

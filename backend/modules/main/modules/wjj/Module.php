@@ -2,7 +2,9 @@
 
 namespace backend\modules\main\modules\wjj;
 
-class Module extends \yii\base\Module
+use backend\components\AppModule;
+
+class Module extends AppModule
 {
     public $controllerNamespace = 'backend\modules\main\modules\wjj\controllers';
 
