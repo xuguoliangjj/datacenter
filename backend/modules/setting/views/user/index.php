@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider'=>$dataProvider,
             'filterModel'=>$model,
             'buttons'=>[
-                \yii\helpers\Html::a('添加用户',['/setting/user'],['class'=>'btn btn-sm btn-primary'])
+                \yii\helpers\Html::a('添加用户',['/setting/user/create'],['class'=>'btn btn-sm btn-primary'])
             ],
             'summary'=>'',
             'columns'=>[

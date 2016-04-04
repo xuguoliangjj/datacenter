@@ -5,7 +5,11 @@ namespace backend\modules\setting\controllers;
 use \backend\components\BaseController;
 use backend\components\Tools;
 use backend\modules\setting\models\AssignmentForm;
+use backend\modules\setting\models\ResetPasswordForm;
 use backend\modules\setting\models\searchs\UserSearch;
+
+use backend\modules\setting\models\SignupForm;
+use common\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use Yii;
@@ -88,16 +92,19 @@ class UserController extends BaseController
         if($model)
         {
             $model->load(Yii::$app->request->get());
+            if(UserSearch::findOne(['username'=>$model->username]))
+            {
+                return Json::encode(array('status' => 'error','msg'=>'改用户名已被使用'));
+            }
             if($model->update())
             {
-                echo Json::encode(array('status' => 'success'));
+                return Json::encode(array('status' => 'success'));
             }else{
-                echo Json::encode(array('status' => 'error','msg'=>'修改名称失败'));
+                return Json::encode(array('status' => 'error','msg'=>'修改名称失败'));
             }
         }else{
-            echo Json::encode(array('status' => 'error','msg'=>'不存在此人'));
+            return Json::encode(array('status' => 'error','msg'=>'不存在此人'));
         }
-        Yii::$app->end();
     }
 
     /**
@@ -121,6 +128,82 @@ class UserController extends BaseController
             echo Json::encode(array('status' => 'error','msg'=>'不存在此人'));
         }
         Yii::$app->end();
+    }
+
+    public function actionCreate()
+    {
+        $model = new SignupForm();
+        $model->setScenario('create');
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                Yii::$app ->session->setFlash('success','添加成功');
+                $this->redirect(['index']);
+            }
+        }
+        return $this->render('create',[
+            'model' => $model
+        ]);
+    }
+
+    /**
+     * 删除用户
+     * @param $id
+     */
+    public function actionDelete($id)
+    {
+        $model = User::findOne($id);
+        if($model->delete()) {
+            Yii::$app->authManager->revokeAll($id);
+            Yii::$app ->session->setFlash('success','用户' .$model->username .'已成功删除');
+            $this->redirect(['index']);
+        }else{
+            Yii::$app ->session->setFlash('fail','用户' .$model->username .'删除失败');
+            $this->redirect(['index']);
+        }
+    }
+
+    /**
+     * 修改用户账号、邮箱、密码
+     * @param $id
+     * @return string
+     */
+    public function actionUpdate($id)
+    {
+        $model = (new SignupForm())->findOne($id);
+        $username = $model->username;
+        $email    = $model->email;
+        if ($model->load(Yii::$app->request->post())) {
+            if($username != $model->username)
+            {
+                if(User::findOne(['username'=>$model->username]))
+                {
+                    $model->addError('username','用户名和其他用户重复');
+                }
+            }
+            if($email != $model->email)
+            {
+                if(User::findOne(['email'=>$model->email]))
+                {
+                    $model->addError('email','该邮箱已经被使用');
+                }
+            }
+            $user = User::findOne($id);
+            $user->username=$model->username;
+            $user->email   =$model->email;
+            if($model->password)
+            {
+                $user->setPassword($model->password);
+            }
+            if($model->validate($model->activeAttributes(),false) && $user->save())
+            {
+                Yii::$app ->session->setFlash('success','修改成功');
+                $this->redirect(['index']);
+            }
+
+        }
+        return $this->render('update',[
+            'model' => $model
+        ]);
     }
 
 }

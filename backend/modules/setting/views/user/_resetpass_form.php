@@ -9,12 +9,12 @@
 use \yii\widgets\ActiveForm;
 use \yii\helpers\Html;
 ?>
-<?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+<?php $form = ActiveForm::begin(['id' => 'form-update']); ?>
 <?= $form->field($model, 'username') ?>
 <?= $form->field($model, 'email') ?>
 <?= $form->field($model, 'password')->passwordInput() ?>
 <?= $form->field($model, 'repassword')->passwordInput() ?>
     <div class="form-group">
-        <?= Html::submitButton('添加', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+        <?= Html::submitButton('修改', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
 <?php ActiveForm::end(); ?>

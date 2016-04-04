@@ -49,12 +49,15 @@ class RolesController extends BaseController
     //修改角色名、简述。。
     public function actionUpdate($id)
     {
+        $rules = ArrayHelper::merge([''=>'NONE'],ArrayHelper::map(Yii::$app->getAuthManager()->getRules(),'name','name'));
         $model =  $this->findModel($id);
         if($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->name]);
+            Yii::$app->session->setFlash('success',"修改 $id 成功");
+            $this->redirect(['index']);
         }
         return $this->render('update',[
-            'model'=>$model
+            'model'=>$model,
+            'rules'=>$rules
         ]);
     }
 
@@ -81,9 +84,8 @@ class RolesController extends BaseController
                 $child = $child ? : $manager->getPermission($role);
                 $manager->addChild($parent, $child);
             }
-            Yii::$app->session->setFlash('success',"修改 $id 成功");
+            Yii::$app->session->setFlash('success',"修改 $id 权限成功");
             $this->redirect(['index']);
-
         }
         $result = [
             'Roles'       => [],

@@ -29,8 +29,8 @@ if (Yii::$app->user->isGuest) {
     $menuItems[] = [
         'label' => '<span class="glyphicon glyphicon-user"></span> '.Yii::$app->user->identity->username,
         'items' => [
+            ['label' => '<span class="glyphicon glyphicon-lock"></span> 修改密码','url'=>['/site/reset-password']],
             ['label' => '<span class="glyphicon glyphicon-off"></span> 注销登录', 'url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
-            ['label' => '<span class="glyphicon glyphicon-cog"></span> 修改密码','url'=>['/site/password']],
         ]
     ];
 
