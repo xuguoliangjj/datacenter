@@ -90,11 +90,12 @@ class BaseController extends Controller
     //验证是否有权限
     private function authRoute()
     {
-        if($this->action->id == 'index'){
-            $route = trim(str_replace('index','',$this -> route),'/');
-        }else{
-            $route = trim($this->route,'/');
-        }
+//        if($this->action->id == 'index'){
+//            $route = trim(str_replace('index','',$this -> route),'/');
+//        }else{
+//            $route = trim($this->route,'/');
+//        }
+        $route = trim($this->route,'/');
         if(!$this->auth($route))
         {
             throw new ForbiddenHttpException('没有相关权限，如需开通，请联系管理人员！');
