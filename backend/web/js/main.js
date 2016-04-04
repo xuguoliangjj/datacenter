@@ -157,6 +157,8 @@ $(function(){
 
     //确认
     $("#own-sure-filter").click(function(){
+        $(".own-filter-bar").prev('.line').remove();
+        $(".own-filter-bar").before("<hr class='line'>").slideDown();
         var platform_items = $("#own-filter-platform-list > ul > li");
         $.fn.platform=[];
         for(var i=0; i < platform_items.length; i++)

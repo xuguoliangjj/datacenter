@@ -69,8 +69,8 @@
                 ?>
             </div>
         </div>
-        <hr>
-        <div class="row own-filter-bar">
+
+        <div class="row own-filter-bar" style="display: none;">
             <div class="col-xs-12 col-sm-12">
                 <div id="own-platform">
                     <span class="own-title">平 台：</span>
