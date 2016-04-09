@@ -1,12 +1,17 @@
-<div class="wjj-default-index">
-    <h1><?= $this->context->action->uniqueId ?></h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
-</div>
+<?php
+$this->title = '玩家邮件';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<?php \yii\widgets\Pjax::begin()?>
+    <div class="panel panel-default own-panel">
+        <div class="panel-heading">
+            玩家邮件
+        <span class="pull-right own-toggle">
+            <a class="glyphicon glyphicon-chevron-up"></a>
+        </span>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+<?php \yii\widgets\Pjax::end()?>
