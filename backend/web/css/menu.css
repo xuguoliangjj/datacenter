@@ -4,11 +4,6 @@
     width: 250px;
     background: #333;
 }
-.content {
-    display: block;
-    overflow: hidden;
-    width: auto;
-}
 
 .sidebar-nav {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);

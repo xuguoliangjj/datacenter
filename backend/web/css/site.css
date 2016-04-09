@@ -4,18 +4,15 @@ body {
     height: 100%;
 }
 
-.wrap {
-    height: 100%;
-}
-
-
 .footer {
     height: 60px;
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
-    position: relative;
-    z-index: 1;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    bottom: 0;
 }
 
 .jumbotron {
@@ -110,7 +107,7 @@ pre{
 }
 
 .own-panel{
-    margin:5px 15px 15px;
+    margin:auto 15px 15px;
 }
 
 .modal-content {

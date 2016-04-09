@@ -1,6 +1,6 @@
 .breadcrumb{
     border-radius: 0px;
-    margin: 8px 0px 8px;
+    margin: 10px auto 10px;
 }
 .panel{
     border-radius: 0px;
@@ -121,14 +121,11 @@ input,button,a {
 }
 
 .own-left-bar{
-    position: fixed;
-    top: 50px;
     height: 100%;
-    overflow: auto;
 }
 
 .own-main-bar{
-    float: right;
+    margin-bottom: 60px;
 }
 
 .own-container-fluid{
@@ -142,3 +139,28 @@ input,button,a {
     padding-top: 3px;
     padding-left: 10px;
 }
+
+#own-main{
+    margin: 0px;
+    height: 100%;
+    position: relative;
+}
+
+.content{
+    height: 100%;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    position: relative;
+
+}
+
+
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
