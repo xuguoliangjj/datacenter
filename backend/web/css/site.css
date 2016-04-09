@@ -9,10 +9,6 @@ body {
     background-color: #f5f5f5;
     border-top: 1px solid #ddd;
     padding-top: 20px;
-    position: fixed;
-    z-index: 999;
-    width: 100%;
-    bottom: 0;
 }
 
 .jumbotron {

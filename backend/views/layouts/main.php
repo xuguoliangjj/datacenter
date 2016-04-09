@@ -50,7 +50,6 @@ AppAsset::register($this);
                 <?= $content ?>
             </div>
         </div>
-        <div class="clear:both"></div>
     </div>
 </div>
 

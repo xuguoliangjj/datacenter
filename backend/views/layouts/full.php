@@ -19,7 +19,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-<div class="wrap">
+<div class="content">
     <?=$this -> context -> renderPartial('@backend/views/layouts/_top.php');?>
     <div class="container-fluid own-container-fluid">
         <div class="row">

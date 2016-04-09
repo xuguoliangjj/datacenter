@@ -121,15 +121,11 @@ input,button,a {
 }
 
 .own-left-bar{
-    height: 100%;
+
 }
 
 .own-main-bar{
-    margin-bottom: 60px;
-}
-
-.own-container-fluid{
-    margin-top: 60px;
+    background-color: #fff;
 }
 
 .own-routes-list{
@@ -142,25 +138,12 @@ input,button,a {
 
 #own-main{
     margin: 0px;
-    height: 100%;
     position: relative;
 }
 
 .content{
-    height: 100%;
-    margin-top: 50px;
-    margin-bottom: 60px;
-    position: relative;
-
+    padding: 0 0 60px;
+    height: auto;
+    min-height: 100%;
+    margin: 50px auto -60px;
 }
-
-
-
-.clearfix:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-}
-
