@@ -32,6 +32,7 @@ class UserController extends BaseController
         $model = new AssignmentForm();
         $model -> setScenario('auth');
         $permissions = [];
+        $app         = [];
         $authManager = Yii::$app->authManager;
         if($model -> load(Yii::$app->request->post()) && $model -> validate()){
             //Revokes all roles from a user.
@@ -45,8 +46,9 @@ class UserController extends BaseController
                     }
                 }
                 //权限
-                if(is_array($model->permissions)) {
-                    foreach ($model->permissions as $name) {
+                $roles = ArrayHelper::merge($model->permissions,$model->app);
+                if(is_array($roles)) {
+                    foreach ($roles as $name) {
                         $item = $authManager->getPermission($name);
                         $authManager->assign($item, $id);
                     }
@@ -65,12 +67,16 @@ class UserController extends BaseController
         foreach ($authManager->getPermissions() as $name => $role) {
             if($role->name[0] == '/'){
                 $permissions[$name] = $role->description;
+            }elseif(substr($role->name,0,3) == 'app'){
+                $app[$name]  = $role->description;
             }
         }
 
         foreach($authManager->getAssignments($id) as $name => $item){
             if($name[0] == '/'){
                 $model -> permissions[$authManager -> getPermission($name) -> description] =  $name;
+            }elseif(substr($name,0,3) == 'app'){
+                $model->app[$name]  = $name;
             }else{
                 $model -> roles[$name] = $name;
             }
@@ -79,7 +85,8 @@ class UserController extends BaseController
         return $this->render('view',[
             'model'=>$model,
             'roles'=>$roles,
-            'permissions'=>$permissions
+            'permissions'=>$permissions,
+            'app'=>$app
         ]);
     }
 

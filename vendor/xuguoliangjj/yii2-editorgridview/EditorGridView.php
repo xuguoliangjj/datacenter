@@ -20,7 +20,10 @@ class EditorGridView extends GridView
     public $tableOptions = ["class"=>"table grid-view table-striped table-bordered","cellspacing"=>"0", "width"=>"100%"];
     public $outerTableOptions = ['class'=>'own-table-outer'];
     public $options = ['class'=>'grid-view'];
-
+    /**
+     * @var string the HTML content to be displayed when [[dataProvider]] does not have any data.
+     */
+    public $emptyText='<center>没有找到数据</center>';
     /**
      * @inheritdoc
      */
@@ -45,6 +48,24 @@ class EditorGridView extends GridView
      * @var按钮
      */
     public $buttons = [];
+    /**
+     * @var bool
+     * 是否用datatable渲染，默认true
+     */
+    public $isDatatable = true;
+    /**
+     * @var string
+     * Perform one of the built in error reporting actions:
+     * alert (default) - Alert the error
+     * throw - Throw a Javascript error
+     * none - Do nothing (you would want to use this error in this case)
+     */
+    public $tableErrMode = 'none';
+    /**
+     * @var string
+     * 是否开启表格排序,默认关闭
+     */
+    public $tableOrdering = 'false';
 
     public function init()
     {
@@ -109,15 +130,21 @@ class EditorGridView extends GridView
                 });");
             }
         }
-        $class = $this->outerTableOptions['class'];
-        $view->registerJs("jQuery('#$id > .$class > .grid-view').DataTable({
+        if($this->isDatatable) {
+            $class = $this->outerTableOptions['class'];
+            $view->registerJs(<<<EOD
+        $.fn.dataTable.ext.errMode = '$this->tableErrMode';
+        jQuery('#$id > .$class > .grid-view').DataTable({
+                ordering:$this->tableOrdering,
 				searching:false,
 				info:false,
 				paging:false,
 				language: {
                     'sLengthMenu': '',
-				}});"
-        );
+				}});
+EOD
+            );
+        }
     }
 
     /**

@@ -113,7 +113,7 @@ input,button,a {
 }
 
 .active{
-    display: block;
+    /*display: block;*/
 }
 
 #own-platform .label,#own-server .label,#own-channel .label{

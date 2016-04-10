@@ -12,6 +12,7 @@ use \yii\helpers\Html;
 <?php $form = ActiveForm::begin(['id' => 'assignment-form']); ?>
 
 <?= $form->field($model, 'roles')->checkboxList($roles); ?>
+<?= $form->field($model, 'app')->checkboxList($app); ?>
 <?php $flag = 1;?>
 <?php foreach($permissions as $items):?>
     <?php

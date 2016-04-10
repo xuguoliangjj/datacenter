@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo \xuguoliangjj\editorgridview\EditorGridView::widget([
             'dataProvider'=>$dataProvider,
             'filterModel'=>$model,
+            'isDatatable'=>true,
             'buttons'=>[
                 \yii\helpers\Html::a('添加用户',['/setting/user/create'],['class'=>'btn btn-sm btn-primary'])
             ],
@@ -34,12 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute'=>'created_at','label'=>'创建时间','format'=>['raw'],
                     'editable'=>['editor',function($model){
                     return [
-                        'data-type'=>'date',
+                        'data-type'=>'datetime',
                         'data-pk'=>$model->id,
                         'data-url'=>\yii\helpers\Url::to(['/setting/user/change-time'])
                     ];
                 }],'value'=>function($model){
-                    return Yii::$app->formatter->asDate($model->created_at,'php:Y-m-d');
+                    return Yii::$app->formatter->asDate($model->created_at,'php:Y-m-d H:i:s');
                 }, 'filter'=>true],
                 ['attribute'=>'updated_at','label'=>'修改时间','value'=>function($model){
                     return Yii::$app->formatter->asDate($model->updated_at,'php:Y-m-d');

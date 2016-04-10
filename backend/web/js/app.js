@@ -267,4 +267,7 @@ $(function(){
     var e = new Graphic();
     e.registerListen();
     $.triggerChart();
+    $(".own-download").click(function(){
+        layer.msg("下载报表，暂未开发");
+    });
 });

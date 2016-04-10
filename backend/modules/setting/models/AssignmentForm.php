@@ -8,6 +8,7 @@ class AssignmentForm extends Model
 {
     public $roles;
     public $permissions;
+    public $app;
 
     public function rules()
     {
@@ -19,7 +20,7 @@ class AssignmentForm extends Model
     public function scenarios()
     {
         return [
-            'auth'=>['roles','permissions']
+            'auth'=>['roles','permissions','app']
         ];
     }
 
@@ -27,7 +28,8 @@ class AssignmentForm extends Model
     {
         return [
             'roles'=>'角色',
-            'permissions'=>'权限'
+            'permissions'=>'权限',
+            'app'=>'游戏'
         ];
     }
 }

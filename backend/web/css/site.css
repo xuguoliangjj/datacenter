@@ -39,13 +39,16 @@ a.asc:after, a.desc:after {
 }
 
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+    content: "\e113";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+    content: "\e114";
 }
 
+.grid-view > thead > tr > th >a{
+    text-decoration: none;
+}
 .sort-numerical a.asc:after {
     content: "\e153";
 }
@@ -112,4 +115,10 @@ pre{
 
 .own-close-filter-label{
     cursor: pointer;
+}
+
+/*修复弹出日期表格布局问题 dataTables.bootstrap.css 54行造成*/
+table.table-condensed thead > tr > th,
+table.table-condensed thead > tr > td {
+    padding-right: 0px;
 }

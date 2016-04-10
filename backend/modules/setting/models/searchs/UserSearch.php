@@ -37,7 +37,8 @@ class UserSearch extends ActiveRecord
     {
         return [
             'username' => '用户名',
-            'email' => '邮箱'
+            'email' => '邮箱',
+            'created_at'=>'创建时间'
         ];
     }
 
