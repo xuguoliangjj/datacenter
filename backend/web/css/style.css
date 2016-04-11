@@ -113,7 +113,7 @@ input,button,a {
 }
 
 .active{
-    /*display: block;*/
+    display: block;
 }
 
 #own-platform .label,#own-server .label,#own-channel .label{
@@ -147,3 +147,4 @@ input,button,a {
     min-height: 100%;
     margin: 50px auto -60px;
 }
+

@@ -122,3 +122,7 @@ table.table-condensed thead > tr > th,
 table.table-condensed thead > tr > td {
     padding-right: 0px;
 }
+
+table.table-condensed .active{
+    display: unset;
+}

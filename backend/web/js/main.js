@@ -199,12 +199,15 @@ $(function(){
     });
     $('[data-toggle="popover"]').popover();
 
+    $.fn.datetimepicker.defaults = {
+            bootcssVer:3,
+            minuteStep:1
+    };
     //日期选择
     var datetimepickerOptions = {
         minView: "month", //选择日期后，不会再跳转去选择时分秒
         format: "yyyy-mm-dd", //选择日期后，文本框显示的日期格式
         autoclose:true, //选择日期后自动关闭
-        bootcssVer:3,
         pickerPosition: "bottom-left"
     };
     $("#own-date-start").datetimepicker(datetimepickerOptions).on('changeDate', function(ev){

@@ -56,11 +56,15 @@ class Tools extends Object
     {
         $apps = [];
         $authManager = Yii::$app->authManager;
-        foreach ($authManager->getPermissionsByUser(Yii::$app->user->id) as $name => $role) {
-            if (empty($term) or strpos($name, $term) !== false) {
-                if(substr($name,0,3) === 'app'){
-                    $apps[] = substr($name,4,strlen($name));
-                }
+        foreach ($authManager->getPermissionsByUser(Yii::$app->user->id) as $name => $item) {
+            if(substr($name,0,3) === 'app'){
+                $apps[] = substr($name,4,strlen($name));
+            }
+        }
+        foreach($authManager->getAssignments(Yii::$app->user->id) as $name => $item)
+        {
+            if(substr($name,0,3) === 'app'){
+                $apps[] = substr($name,4,strlen($name));
             }
         }
         return $apps;
