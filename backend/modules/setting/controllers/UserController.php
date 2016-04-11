@@ -35,6 +35,11 @@ class UserController extends BaseController
         $app         = [];
         $authManager = Yii::$app->authManager;
         if($model -> load(Yii::$app->request->post()) && $model -> validate()){
+            foreach($model->getAttributes() as $key => $value){
+                if(empty($value)){
+                    $model->$key=[];
+                }
+            }
             //Revokes all roles from a user.
             try {
                 $authManager->revokeAll($id);
