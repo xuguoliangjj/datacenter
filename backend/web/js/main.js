@@ -39,6 +39,39 @@ $.fn.channel  = [];
 $.fn.server   = [];
 $.fn.ajaxList = [];
 $(function(){
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+        //当前点击的tag
+        var curr  = e.target;
+        //上一个点击的tag
+        var prev  = e.relatedTarget;
+        var li    = $(this).parent();
+        var index = li.index();
+        var tab_content     = li.parent().siblings('.tab-content');
+        var tab_pane        = tab_content.children('.tab-pane').eq(index);
+        //处理tab内的highchart图
+        var chart_div     = tab_pane.children('.own-chart');
+        //if(chart_div.children().find('.loading').length != 0){
+        //    return;
+        //}
+        //触发一个重绘事件
+        var highchart_div = chart_div.find('.own-highchart');
+        if(highchart_div != undefined) {
+            var highctart    = highchart_div.highcharts();
+            if (highctart != undefined) {
+                highctart.destroy();
+            }
+        }
+        //处理tab内的datatable表格
+        var datatable_div = chart_div.find(".own-table");
+        if(datatable_div != undefined) {
+            var id = "#" + datatable_div.attr('id');
+            if ($.fn.dataTable.isDataTable(id)) {
+                $(id).DataTable().destroy();
+                $(id).empty();
+            }
+        }
+        chart_div.trigger('refresh.chart');
+    });
     var Global = function(){
     };
     GlobalObj = new Global();

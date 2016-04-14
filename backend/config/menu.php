@@ -14,7 +14,7 @@ return [
                     ['label' => '活跃玩家', 'url' => ['/main/active']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
-                    ['label' => '实时在线', 'url' => ['/site/indsex']],
+                    ['label' => '实时在线', 'url' => ['/main/online']],
                     ['label' => '实时登录', 'url' => ['/product/index4']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-yen','label' => '付费分析','items' => [

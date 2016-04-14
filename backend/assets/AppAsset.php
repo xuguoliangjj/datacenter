@@ -37,6 +37,7 @@ class AppAsset extends AssetBundle
         'js/icheck/icheck.js',
         'js/highcharts/js/highcharts.js',
         'js/highcharts/js/modules/exporting.js',
+        'js/highcharts/js/modules/exporting-excel.js',
         'js/highlight/highlight.pack.js',
         'js/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
     ];

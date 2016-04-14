@@ -1,6 +1,6 @@
 .breadcrumb{
     border-radius: 0px;
-    margin: 10px auto 10px;
+    margin: 15px auto 15px;
 }
 .panel{
     border-radius: 0px;
@@ -146,5 +146,9 @@ input,button,a {
     height: auto;
     min-height: 100%;
     margin: 50px auto -60px;
+}
+
+.own-tips-bar{
+    margin: 0px 15px -5px
 }
 

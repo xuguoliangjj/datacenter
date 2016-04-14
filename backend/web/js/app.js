@@ -5,41 +5,9 @@ $(function(){
     var requestList = {
         adp:"/main/add/adp.html",
         avp:"/main/add/avp.html",
-        dau:"/main/active/dau.html"
+        dau:"/main/active/dau.html",
+        onlmin:"/main/online/onlmin.html"
     }
-    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-        //当前点击的tag
-        var curr  = e.target;
-        //上一个点击的tag
-        var prev  = e.relatedTarget;
-        var li    = $(this).parent();
-        var index = li.index();
-        var tab_content     = li.parent().siblings('.tab-content');
-        var tab_pane        = tab_content.children('.tab-pane').eq(index);
-        //处理tab内的highchart图
-        var chart_div     = tab_pane.children('.own-chart');
-        //if(chart_div.children().find('.loading').length != 0){
-        //    return;
-        //}
-        //触发一个重绘事件
-        var highchart_div = chart_div.find('.own-highchart');
-        if(highchart_div != undefined) {
-            var highctart    = highchart_div.highcharts();
-            if (highctart != undefined) {
-                highctart.destroy();
-            }
-        }
-        //处理tab内的datatable表格
-        var datatable_div = chart_div.find(".own-table");
-        if(datatable_div != undefined) {
-            var id = "#" + datatable_div.attr('id');
-            if ($.fn.dataTable.isDataTable(id)) {
-                $(id).DataTable().destroy();
-                $(id).empty();
-            }
-        }
-        chart_div.trigger('refresh.chart');
-    });
     var Graphic = function(){
 
     };
@@ -61,6 +29,106 @@ $(function(){
             var t = new Graphic();
             t.refresh_dau_player($.buildParams());
         });
+        $("#onlmin").on('refresh.chart',function(){
+            var t = new Graphic();
+            t.refresh_onlmin_player($.buildParams());
+        });
+    },
+    Graphic.prototype.refresh_onlmin_player = function(params){
+        var g = this;
+        if($.fn.ajaxList.onlmin) $.fn.ajaxList.onlmin.abort();
+        $.fn.ajaxList.onlmin = $.ajax({
+            type:"post",
+            data:params,
+            url:requestList.onlmin,
+            beforeSend:function(){
+                $("#onlmin .loading").remove();
+                g.loading("onlmin-chart");
+            },
+            complete:function(){
+                $("#onlmin .loading").remove();
+            },
+            success:function(json){
+                $('#onlmin-chart').highcharts({
+                    chart: {
+                        zoomType: 'x'
+                    },
+                    title: {
+                        text: '实时在线-分钟'
+                    },
+                    subtitle: {
+                        text: '最高在线：22121 当前在线：17832'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        title: {
+                            text: null
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '玩家人数'
+                        }
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        area: {
+                            fillColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            lineWidth: 1,
+                            marker: {
+                                enabled: false
+                            },
+                            shadow: false,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'area',
+                            name: '玩家数',
+                            pointInterval: 60 * 1000,
+                            pointStart: Date.UTC(2016, 03, 14),
+                            data:json
+                        }
+                    ]
+                });
+                $('#onlmin-table').DataTable({
+                    data: (function(){
+                        var series = $('#onlmin-chart').highcharts().series[0];
+                        var data = [];
+                        for(var i=0; i<series.data.length; i++ )
+                        {
+                            var datetime = series.data[i].x;
+                            data[i] = [
+                                new Date(datetime).toUTCString(),
+                                series.data[i].y
+                            ]
+                        }
+                        return data;
+                    })(),
+                    columns: [
+                        { title: "时间" },
+                        { title: "在线人数" }
+                    ]
+                });
+            }
+        });
     },
     Graphic.prototype.refresh_add_player = function(params){
         var g = this;
@@ -77,7 +145,6 @@ $(function(){
                 $("#adp .loading").remove();
             },
             success:function(json){
-
                 $('#adp-chart').highcharts({
                     chart : {
                         type : 'line'
@@ -268,6 +335,13 @@ $(function(){
     e.registerListen();
     $.triggerChart();
     $(".own-download").click(function(){
-        layer.msg("下载报表，暂未开发");
+        var chart = $(this).parent().siblings('.panel-body').children('.tab-content').children('.active').find('.own-highchart');
+        chart = chart.highcharts();
+        if(chart != undefined){
+            Highcharts.post('http://export.hcharts.cn/cvs.php', { csv: chart.getCSV() });
+        }else{
+            layer.msg('请骚等，表急~~');
+        }
+
     });
 });

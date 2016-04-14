@@ -39,9 +39,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=wjj',
-            'username' => 'root',
-            'password' => '123456',
+            'dsn' => 'mysql:host=115.28.39.138;dbname=wjj',
+            'username' => 'xuguoliang',
+            'password' => 'xuguoliang!@#',
             'charset' => 'utf8',
         ],
         'log' => [
