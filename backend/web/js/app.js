@@ -3,10 +3,11 @@
  */
 $(function(){
     var requestList = {
-        adp:"/main/add/adp.html",
-        avp:"/main/add/avp.html",
-        dau:"/main/active/dau.html",
-        onlmin:"/main/online/onlmin.html"
+        adp   : "/main/add/adp.html",
+        avp   : "/main/add/avp.html",
+        dau   : "/main/active/dau.html",
+        onlmin: "/main/online/onlmin.html",
+        onlhou: "/main/online/onlhou.html",
     }
     var Graphic = function(){
 
@@ -32,6 +33,106 @@ $(function(){
         $("#onlmin").on('refresh.chart',function(){
             var t = new Graphic();
             t.refresh_onlmin_player($.buildParams());
+        });
+        $("#onlhou").on('refresh.chart',function(){
+            var t = new Graphic();
+            t.refresh_onlhou_player($.buildParams());
+        });
+    },
+    Graphic.prototype.refresh_onlhou_player = function(params){
+        var g = this;
+        if($.fn.ajaxList.onlhou) $.fn.ajaxList.onlhou.abort();
+        $.fn.ajaxList.onlhou = $.ajax({
+            type:"post",
+            data:params,
+            url:requestList.onlhou,
+            beforeSend:function(){
+                $("#onlhou .loading").remove();
+                g.loading("onlhou-chart");
+            },
+            complete:function(){
+                $("#onlhou .loading").remove();
+            },
+            success:function(json){
+                $('#onlhou-chart').highcharts({
+                    chart: {
+                        zoomType: 'x'
+                    },
+                    title: {
+                        text: '实时在线-小时'
+                    },
+                    subtitle: {
+                        text: '最高在线：22121'
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        title: {
+                            text: null
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: '玩家人数'
+                        }
+                    },
+                    tooltip: {
+                        shared: true
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        area: {
+                            fillColor: {
+                                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                                stops: [
+                                    [0, Highcharts.getOptions().colors[0]],
+                                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                                ]
+                            },
+                            lineWidth: 1,
+                            marker: {
+                                enabled: false
+                            },
+                            shadow: false,
+                            states: {
+                                hover: {
+                                    lineWidth: 1
+                                }
+                            },
+                            threshold: null
+                        }
+                    },
+                    series: [
+                        {
+                            type: 'area',
+                            name: '玩家数',
+                            pointInterval: 60 * 1000 * 60,
+                            pointStart: Date.UTC(2016, 03, 14),
+                            data:json
+                        }
+                    ]
+                });
+                $('#onlhou-table').DataTable({
+                    data: (function(){
+                        var series = $('#onlhou-chart').highcharts().series[0];
+                        var data = [];
+                        for(var i=0; i<series.data.length; i++ )
+                        {
+                            var datetime = series.data[i].x;
+                            data[i] = [
+                                new Date(datetime).toUTCString(),
+                                series.data[i].y
+                            ]
+                        }
+                        return data;
+                    })(),
+                    columns: [
+                        { title: "时间" },
+                        { title: "在线人数" }
+                    ]
+                });
+            }
         });
     },
     Graphic.prototype.refresh_onlmin_player = function(params){
