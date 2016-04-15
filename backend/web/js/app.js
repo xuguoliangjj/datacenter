@@ -299,7 +299,8 @@ $(function(){
                 });
             }
         });
-    },Graphic.prototype.refresh_activate_player=function(params){
+    },
+    Graphic.prototype.refresh_activate_player=function(params){
         var g = this;
         if($.fn.ajaxList.avp) $.fn.ajaxList.avp.abort();
         $.fn.ajaxList.avp = $.ajax({
@@ -367,7 +368,8 @@ $(function(){
                 });
             }
         });
-    },Graphic.prototype.refresh_dau_player = function(params){
+    },
+    Graphic.prototype.refresh_dau_player = function(params){
         var g = this;
         if($.fn.ajaxList.dau) $.fn.ajaxList.dau.abort();
         $.fn.ajaxList.dau = $.ajax({
