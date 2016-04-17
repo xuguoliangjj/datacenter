@@ -329,6 +329,17 @@ $(function(){
     });
 });
 
+$(".own-download").click(function(){
+    var chart = $(this).parent().siblings('.panel-body').children('.tab-content').children('.active').find('.own-highchart');
+    chart = chart.highcharts();
+    if(chart != undefined){
+        Highcharts.post('http://export.hcharts.cn/cvs.php', { csv: chart.getCSV() });
+    }else{
+        layer.msg('请骚等，表急~~');
+    }
+
+});
+
 Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份

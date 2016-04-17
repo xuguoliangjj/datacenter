@@ -1,20 +1,20 @@
 <?php
 use yii\bootstrap\Tabs;
-$this->title = '实时在线';
+$this->title = '玩家留存';
 $this->params['breadcrumbs'][] = ['label'=>$this->title];
 ?>
 <?= $this -> context -> renderPartial('@backend/views/layouts/_filter');?>
 <div class="row own-tips-bar">
     <div class="alert alert-success alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>在线按分：</strong>每分钟在线玩家数<br>
-        <strong>在线按时：</strong>每小时在线玩家数<br>
-        <strong>在线按天：</strong>每天在线玩家数
+        <strong>次日留存率：</strong>统计所选时期内，当日成功登陆游戏的新增玩家中，第二日再次登陆游戏的玩家数量，占当日游戏新增玩家数量的比例。<br>
+        <strong>三日留存率：</strong>统计所选时期内，当日成功登陆游戏的新增玩家中，往后推第3日（当日不计入天数）登陆游戏的玩家数量，占当日游戏新增玩家数量的比例。<br>
+        <strong>七日留存率：</strong>统计所选时期内，当日成功登陆游戏的新增玩家中，往后推第7日（当日不计入天数）登陆游戏的玩家数量，占当日游戏新增玩家数量的比例。
     </div>
 </div>
 <div class="panel panel-default own-panel">
     <div class="panel-heading">
-        实时在线
+        玩家留存
         <span class="pull-right own-toggle">
             <a class="glyphicon glyphicon-chevron-up"></a>
         </span>
@@ -27,16 +27,8 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
             'navType'=>'nav-pills',
             'items' => [
                 [
-                    'label' => '在线按分',
-                    'content' => $this->render('_online_minute'),
-                ],
-                [
-                    'label' => '在线按时',
-                    'content' => $this->render('_online_hour'),
-                ],
-                [
-                    'label' => '在线按天',
-                    'content' => $this->render('_online_day'),
+                    'label' => '玩家留存',
+                    'content' => $this->render('_remain'),
                 ]
             ],
         ]);

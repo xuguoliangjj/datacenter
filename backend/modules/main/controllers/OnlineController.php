@@ -1471,9 +1471,41 @@ class OnlineController extends BaseController
 
     /**
      * @return array
-     * 在线数据
+     * 在线按时数据
      */
     public function actionOnlhou()
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            20166,
+            9115,
+            19208,
+            19277,
+            9466,
+            19890,
+            20128,
+            20216,
+            10210,
+            20230,
+            20285,
+            20286,
+            20285,
+            20270,
+            20250,
+            20189,
+            20134,
+            20011,
+            19970,
+            19947,
+            19885,
+            19838,
+            19791,
+            19709,
+            10614,
+        ];
+    }
+
+    public function actionDays()
     {
         \Yii::$app->response->format = Response::FORMAT_JSON;
         return [

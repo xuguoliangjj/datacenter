@@ -12,6 +12,9 @@ return [
                 ['icon'=>'glyphicon glyphicon-user','label' => '玩家分析','items' => [
                     ['label' => '新增玩家', 'url' => ['/main/add']],
                     ['label' => '活跃玩家', 'url' => ['/main/active']],
+                    ['label' => '玩家留存', 'url' => ['/main/remain']],
+                    ['label' => '滚服统计', 'url' => ['/main/active']],
+                    ['label' => '设备详情', 'url' => ['/main/active']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
                     ['label' => '实时在线', 'url' => ['/main/online']],
@@ -20,14 +23,14 @@ return [
                 ['icon'=>'glyphicon glyphicon-yen','label' => '付费分析','items' => [
                     ['label' => '充值统计', 'url' => ['/site/indsex']],
                     ['label' => '充值分布', 'url' => ['/product/index4']],
+                    ['label' => '充值排行', 'url' => ['/product/index4']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-random','label' => '流失分析','items' => [
-                    ['label' => '留存统计', 'url' => ['/product/index5']],
+                    ['label' => '每日流失', 'url' => ['/product/index5']],
                     ['label' => '等级流失', 'url' => ['/product/index6']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-level-up','label' => '等级分析','items' => [
-                    ['label' => '等级分布', 'url' => ['/product/index5']],
-                    ['label' => '等级流失', 'url' => ['/product/index6']],
+                    ['label' => '等级分布', 'url' => ['/product/index5']]
                 ]],
                 ['icon'=>'glyphicon glyphicon-tasks','label' => '任务分析','items' => [
                     ['label' => '任务统计', 'url' => ['/product/index5']],
