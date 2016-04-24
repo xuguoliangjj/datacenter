@@ -13,8 +13,8 @@ return [
                     ['label' => '新增玩家', 'url' => ['/main/add']],
                     ['label' => '活跃玩家', 'url' => ['/main/active']],
                     ['label' => '玩家留存', 'url' => ['/main/remain']],
-                    ['label' => '滚服统计', 'url' => ['/main/active']],
-                    ['label' => '设备详情', 'url' => ['/main/active']],
+                    ['label' => '滚服统计', 'url' => ['/main/rollserv']],
+                    ['label' => '设备详情', 'url' => ['/main/device']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
                     ['label' => '实时在线', 'url' => ['/main/online']],

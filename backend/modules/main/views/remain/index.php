@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
             'navType'=>'nav-pills',
             'items' => [
                 [
-                    'label' => '玩家留存',
+                    'label' => '新增玩家留存',
                     'content' => $this->render('_remain'),
                 ]
             ],
