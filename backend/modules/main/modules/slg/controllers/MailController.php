@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\main\modules\wjj\controllers;
+namespace backend\modules\main\modules\slg\controllers;
 
 use backend\components\BaseController;
 

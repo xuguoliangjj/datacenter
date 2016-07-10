@@ -62,12 +62,16 @@ class AppController extends BaseController
     {
         $model = new App();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $auth = Yii::$app->authManager;
-            $item = $auth->createPermission('app_'.$model->app_code);
-            $item->description = $model->app_name;
-            $auth->add($item);
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->app_id     = strtolower(substr(md5(Yii::$app->security->generateRandomString()),0,15));
+            $model->app_secret = strtolower(md5(Yii::$app->security->generateRandomString()));
+            if ($model->save()) {
+                $auth = Yii::$app->authManager;
+                $item = $auth->createPermission('app_' . $model->app_code);
+                $item->description = $model->app_name;
+                $auth->add($item);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -102,8 +106,12 @@ class AppController extends BaseController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if($model->delete()) {
+            $auth = Yii::$app->getAuthManager();
+            $item = $auth->getPermission('app_' . $model->app_code);
+            $auth->remove($item);
+        }
         return $this->redirect(['index']);
     }
 

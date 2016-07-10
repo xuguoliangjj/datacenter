@@ -20,11 +20,8 @@ return [
         'main' => [
             'class'   => 'backend\modules\main\mainModule',
             'modules' => [
-                'wjj' => [
-                    'class' => 'backend\modules\main\modules\wjj\Module'
-                ],
-                'tlj' => [
-                    'class' => 'backend\modules\main\modules\tlj\Module',
+                'slg' => [
+                    'class' => 'backend\modules\main\modules\slg\Modules',
                 ]
             ]
         ],

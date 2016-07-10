@@ -8,9 +8,9 @@
 return [
     'wjj'=> ['label'=>'运营工具', 'items'=>[
             ['icon'=>'glyphicon glyphicon-user','label' => 'GM工具','items' => [
-                ['label' => '玩家邮件', 'url' => ['/main/wjj/mail']],
-                ['label' => '游戏公告', 'url' => ['/main/wjj/notice']],
-                ['label' => '玩家封禁', 'url' => ['/main/wjj/stop']],
+                ['label' => '玩家邮件', 'url' => ['/main/slg/mail']],
+                ['label' => '游戏公告', 'url' => ['/main/slg/notice']],
+                ['label' => '玩家封禁', 'url' => ['/main/slg/stop']],
             ]]
         ]
     ]

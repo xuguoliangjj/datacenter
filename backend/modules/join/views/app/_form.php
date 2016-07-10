@@ -14,10 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'app_name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'app_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'app_secret')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'app_code')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'version')->textInput(['maxlength' => true]) ?>

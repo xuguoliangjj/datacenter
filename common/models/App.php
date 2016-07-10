@@ -39,7 +39,7 @@ class App extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['app_name','app_id','app_secret','app_code','version','cp_id','active','api_url'],'required'],
+            [['app_name','app_code','version','cp_id','active','api_url'],'required'],
             [['created_at', 'updated_at', 'cp_id', 'active'], 'integer'],
             [['app_name'], 'string', 'max' => 64],
             [['app_id', 'app_code'], 'string', 'max' => 16],
