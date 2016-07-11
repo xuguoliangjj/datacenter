@@ -64,13 +64,4 @@ class AuthPlatform extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Platform::className(), ['id' => 'platform_id']);
     }
-
-    /**
-     * @inheritdoc
-     * @return AuthPlatformQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new AuthPlatformQuery(get_called_class());
-    }
 }

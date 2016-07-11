@@ -2,6 +2,7 @@
 
 namespace backend\modules\join\controllers;
 
+use common\models\AuthPlatform;
 use common\models\AuthPlatformForm;
 use common\models\Platform;
 use Yii;
@@ -123,12 +124,30 @@ class AppController extends BaseController
      */
     public function actionAuth($id)
     {
-        $app   = $this->findModel($id);
-        $model = new AuthPlatformForm();
-        $data = Platform::find()->asArray()->all();
+        $app       = $this->findModel($id);
+        $model     = new AuthPlatformForm();
+        $data      = Platform::find()->asArray()->all();
+        $platforms = ArrayHelper::map($data,'id','remark');
+        $authPlatform = AuthPlatform::findAll(['app_id' => $id]);
+        foreach ($authPlatform as $item){
+            $model->platform[$item->platform->id] = $item->platform->id;
+        }
+        if($model->load(Yii::$app->request->post())){
+            AuthPlatform::deleteAll(['app_id' => $id]);
+            $model->platform = $model->platform == "" ? [] : $model->platform;
+            foreach ($model->platform as $platform_id){
+                $authModel = new AuthPlatform();
+                $authModel -> app_id = $id;
+                $authModel -> platform_id = $platform_id;
+                $authModel->save();
+            }
+            Yii::$app->session->setFlash('success','修改成功');
+            $this->redirect(['index']);
+        }
         return $this->render('auth',[
-            'model' => $model,
-            'app'  => $app
+            'model'     => $model,
+            'app'       => $app,
+            'platforms' => $platforms
         ]);
     }
     /**

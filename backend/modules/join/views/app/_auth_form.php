@@ -11,7 +11,7 @@ use \yii\helpers\Html;
 ?>
 <?php $form = ActiveForm::begin(['id' => 'auth-form']); ?>
 
-<?= $form->field($model, 'platform')->checkboxList([1,2]); ?>
+<?= $form->field($model, 'platform')->checkboxList($platforms); ?>
 
 <div class="form-group">
     <?= Html::submitButton('修改',

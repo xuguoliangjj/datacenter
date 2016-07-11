@@ -43,6 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'app' => function ($url, $model, $key) {
                          return Html::a('<span class="glyphicon glyphicon-wrench"></span>', ['auth','id'=>$model->id],[
                              'title' => '游戏平台上线配置',
+                             'aria-label' => '游戏平台上线配置',
+                             'data-pjax' => 0
                          ]);
                     }
             ],'template'=>'{view} {app} {update} {delete}'],

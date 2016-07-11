@@ -22,7 +22,8 @@ $this->params['breadcrumbs'][] = '上线配置';
     </div>
     <div class="panel-body">
         <?= $this->render('_auth_form', [
-            'model' => $model,
+            'model'     => $model,
+            'platforms' => $platforms
         ]) ?>
     </div>
 </div>
