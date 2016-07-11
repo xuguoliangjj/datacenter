@@ -46,6 +46,7 @@ return [
                 ['icon'=>'glyphicon glyphicon-user','label' => '接入管理','items' => [
                     ['label' => '公司接入', 'url' => ['/join/cp']],
                     ['label' => '游戏接入', 'url' => ['/join/app']],
+                    ['label' => '平台管理', 'url' => ['/join/platform']],
                     ['label' => '渠道接入', 'url' => ['/join/channel']],
                 ]]
             ]

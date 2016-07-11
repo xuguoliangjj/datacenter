@@ -2,10 +2,13 @@
 
 namespace backend\modules\join\controllers;
 
+use common\models\AuthPlatformForm;
+use common\models\Platform;
 use Yii;
 use common\models\App;
 use common\models\searchs\AppSearch;
 use backend\components\BaseController;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -115,6 +118,19 @@ class AppController extends BaseController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @return string
+     */
+    public function actionAuth($id)
+    {
+        $app   = $this->findModel($id);
+        $model = new AuthPlatformForm();
+        $data = Platform::find()->asArray()->all();
+        return $this->render('auth',[
+            'model' => $model,
+            'app'  => $app
+        ]);
+    }
     /**
      * Finds the App model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

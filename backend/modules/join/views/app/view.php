@@ -6,40 +6,34 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\app */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Apps'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '游戏详情'.$model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', '游戏接入'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = '游戏详情';
 ?>
-<div class="app-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
+<div class="panel panel-default own-panel">
+    <div class="panel-heading">
+        游戏详情
+        <span class="pull-right own-toggle">
+        <a class="glyphicon glyphicon-chevron-up"></a>
+        </span>
+    </div>
+    <div class="panel-body">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'app_name',
+                'app_id',
+                'app_secret',
+                'app_code',
+                'version',
+                'created_at',
+                'updated_at',
+                'cp_id',
+                'active',
+                'api_url'
             ],
         ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'app_name',
-            'app_id',
-            'app_secret',
-            'app_code',
-            'version',
-            'created_at',
-            'updated_at',
-            'cp_id',
-            'active',
-            'api_url'
-        ],
-    ]) ?>
-
+    </div>
 </div>

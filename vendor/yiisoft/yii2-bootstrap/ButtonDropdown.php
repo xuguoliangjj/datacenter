@@ -8,7 +8,6 @@
 namespace yii\bootstrap;
 
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 
 /**
  * ButtonDropdown renders a group or split button dropdown bootstrap component.
@@ -75,7 +74,8 @@ class ButtonDropdown extends Widget
      */
     public function run()
     {
-        Html::addCssClass($this->containerOptions, 'btn-group');
+        // @todo use [[options]] instead of [[containerOptions]] and introduce [[buttonOptions]] before 2.1 release
+        Html::addCssClass($this->containerOptions, ['widget' => 'btn-group']);
         $options = $this->containerOptions;
         $tag = ArrayHelper::remove($options, 'tag', 'div');
 
@@ -94,7 +94,7 @@ class ButtonDropdown extends Widget
      */
     protected function renderButton()
     {
-        Html::addCssClass($this->options, 'btn');
+        Html::addCssClass($this->options, ['widget' => 'btn']);
         $label = $this->label;
         if ($this->encodeLabel) {
             $label = Html::encode($label);
@@ -102,7 +102,8 @@ class ButtonDropdown extends Widget
         if ($this->split) {
             $options = $this->options;
             $this->options['data-toggle'] = 'dropdown';
-            Html::addCssClass($this->options, 'dropdown-toggle');
+            Html::addCssClass($this->options, ['toggle' => 'dropdown-toggle']);
+            unset($this->options['id']);
             $splitButton = Button::widget([
                 'label' => '<span class="caret"></span>',
                 'encodeLabel' => false,
@@ -112,10 +113,10 @@ class ButtonDropdown extends Widget
         } else {
             $label .= ' <span class="caret"></span>';
             $options = $this->options;
-            if (!isset($options['href'])) {
+            if (!isset($options['href']) && $this->tagName === 'a') {
                 $options['href'] = '#';
             }
-            Html::addCssClass($options, 'dropdown-toggle');
+            Html::addCssClass($options, ['toggle' => 'dropdown-toggle']);
             $options['data-toggle'] = 'dropdown';
             $splitButton = '';
         }

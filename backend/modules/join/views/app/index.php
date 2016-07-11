@@ -37,9 +37,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
             // 'cp_id',
-            // 'active',
+            'active',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','buttons'=>[
+                    'app' => function ($url, $model, $key) {
+                         return Html::a('<span class="glyphicon glyphicon-wrench"></span>', ['auth','id'=>$model->id],[
+                             'title' => '游戏平台上线配置',
+                         ]);
+                    }
+            ],'template'=>'{view} {app} {update} {delete}'],
         ],
     ]); ?>
     </div>

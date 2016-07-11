@@ -24,11 +24,7 @@ AppAsset::register($this);
 </div>
 <div class="content">
     <div class="row" id="own-main">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12">
-                <?= $content ?>
-            </div>
-        </div>
+        <?= $content ?>
     </div>
 </div>
 
