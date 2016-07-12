@@ -15,6 +15,7 @@ class RoleAuthForm extends Model
     public $roles;
     public $permissions;
     public $app;
+    public $platforms;
 
     public function rules()
     {
@@ -26,7 +27,7 @@ class RoleAuthForm extends Model
     public function scenarios()
     {
         return [
-            'auth'=>['routes','permissions','roles','app']
+            'auth'=>['routes','permissions','roles','app','platforms']
         ];
     }
 
@@ -36,7 +37,8 @@ class RoleAuthForm extends Model
             'routes'=>'权限',
             'roles'=>'角色',
             'permissions'=>'权限组',
-            'app'=>'游戏'
+            'app'=>'游戏',
+            'platforms'=>'地区'
         ];
     }
 }

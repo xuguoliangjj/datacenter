@@ -44,8 +44,10 @@ class PermissionController extends BaseController
         $model = new AuthPermissionForm();
         $model -> setScenario('auth');
         $result = [
+            'Platforms'   => [],
+            'App'         => [],
             'Permissions' => [],
-            'Routes' => [],
+            'Routes'      => []
         ];
         $authManager = Yii::$app->authManager;
         $parent = $authManager->getPermission($id);
@@ -74,6 +76,12 @@ class PermissionController extends BaseController
                         $authManager->addChild($parent, $child);
                     }
                 }
+                if (is_array($model->platforms)) {
+                    foreach ($model->platforms as $item) {
+                        $child = $authManager->getPermission($item);
+                        $authManager->addChild($parent, $child);
+                    }
+                }
             }catch (\Exception $e){
                 Yii::$app ->session->setFlash('fail',$e->getMessage());
                 $this -> refresh();
@@ -92,6 +100,8 @@ class PermissionController extends BaseController
                     $result['App'][$name] = $role->description;
                 }elseif($name[0] === '/'){
                     $result['Routes'][$name] = $role->description;
+                }elseif(substr($name,0,8) === 'platform'){
+                    $result['Platforms'][$name] = $role->description;
                 }else{
                     $result['Permissions'][$name] = $role->description;
                 }
@@ -103,6 +113,8 @@ class PermissionController extends BaseController
                 $model->app[$name]    = $name;
             }elseif($name[0] === '/'){
                 $model->routes[$name] = $name;
+            }elseif(substr($name,0,8) === 'platform'){
+                $model->platforms[$name] = $name;
             }else{
                 $model->permissions   = $name;
             }
@@ -112,7 +124,8 @@ class PermissionController extends BaseController
             'model'=>$model,
             'routes'=>$routes,
             'permissions'=>$result['Permissions'],
-            'app'=>$result['App']
+            'app'=>$result['App'],
+            'platforms'=>$result['Platforms']
         ]);
     }
 

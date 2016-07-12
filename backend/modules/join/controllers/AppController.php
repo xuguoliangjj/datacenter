@@ -124,22 +124,36 @@ class AppController extends BaseController
      */
     public function actionAuth($id)
     {
-        $app       = $this->findModel($id);
-        $model     = new AuthPlatformForm();
-        $data      = Platform::find()->asArray()->all();
-        $platforms = ArrayHelper::map($data,'id','remark');
+        $app          = $this->findModel($id);
+        $model        = new AuthPlatformForm();
+        $data         = Platform::find()->asArray()->all();
+        $platforms    = ArrayHelper::map($data,'id','remark');
         $authPlatform = AuthPlatform::findAll(['app_id' => $id]);
         foreach ($authPlatform as $item){
             $model->platform[$item->platform->id] = $item->platform->id;
         }
         if($model->load(Yii::$app->request->post())){
+            $auth = Yii::$app->getAuthManager();
+            foreach($auth->getPermissions() as $item)
+            {
+                $arr = explode('_',$item->name);
+                if(count($arr) == 3 && $arr[0] == 'platform' && $arr[1] == $app->app_code)
+                {
+                    $auth->remove($item);
+                }
+            }
             AuthPlatform::deleteAll(['app_id' => $id]);
             $model->platform = $model->platform == "" ? [] : $model->platform;
             foreach ($model->platform as $platform_id){
                 $authModel = new AuthPlatform();
-                $authModel -> app_id = $id;
-                $authModel -> platform_id = $platform_id;
-                $authModel->save();
+                $authModel->app_id = $id;
+                $authModel->platform_id = $platform_id;
+                if($authModel->save()){
+                    $platModel = Platform::findOne(['id'=>$platform_id]);
+                    $item = $auth->createPermission('platform_'.$app->app_code.'_'.$platModel->platform);
+                    $item->description = $app->app_name . '-' . $platModel->remark;
+                    $auth->add($item);
+                }
             }
             Yii::$app->session->setFlash('success','修改成功');
             $this->redirect(['index']);

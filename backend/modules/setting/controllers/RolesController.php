@@ -7,6 +7,8 @@ use backend\modules\setting\models\RoleAuthForm;
 use backend\modules\setting\models\searchs\AuthItemSearch;
 use backend\modules\setting\models\AuthItem;
 use Yii;
+use yii\base\ErrorException;
+use yii\base\InvalidValueException;
 use yii\helpers\ArrayHelper;
 use yii\rbac\Item;
 use yii\web\NotFoundHttpException;
@@ -72,7 +74,7 @@ class RolesController extends BaseController
                     $model->$key=[];
                 }
             }
-            $roles = ArrayHelper::merge($model->roles,$model->routes,$model->permissions,$model->app);
+            $roles = ArrayHelper::merge($model->roles,$model->routes,$model->permissions,$model->app,$model->platforms);
             $manager = Yii::$app->getAuthManager();
             $parent = $manager->getRole($id);
             $manager->removeChildren($parent);
@@ -91,23 +93,29 @@ class RolesController extends BaseController
             'Roles'       => [],
             'Permissions' => [],
             'Routes'      => [],
-            'App'         => []
+            'App'         => [],
+            'Platforms'   => [],
         ];
         $authManager = Yii::$app->authManager;
         $children = array_keys($authManager->getChildren($id));
+        if(empty($children)){
+            throw new ErrorException('cannot find id '.$id);
+        }
         $children[] = $id;
         foreach ($authManager->getRoles() as $name => $role) {
             if (empty($term) or strpos($name, $term) !== false) {
-                $result['Roles'][$name] = $name;
+                $result['Roles'][$name] = $name;                //角色权限
             }
         }
         foreach ($authManager->getPermissions() as $name => $role) {
             if (empty($term) or strpos($name, $term) !== false) {
-                if(substr($name,0,3) === 'app'){
+                if(substr($name,0,3) === 'app'){                //游戏权限
                     $result['App'][$name] = $role->description;
-                }elseif($name[0] === '/'){
+                }elseif($name[0] === '/'){                      //路由权限
                     $result['Routes'][$name] = $role->description;
-                }else{
+                }elseif(substr($name,0,8) === 'platform'){      //地区权限
+                    $result['Platforms'][$name] = $role->description;
+                }else{                                          //权限组
                     $result['Permissions'][$name] = $role->description;
                 }
             }
@@ -121,6 +129,8 @@ class RolesController extends BaseController
                         $model->app[$name]    = $name;
                     }elseif($name[0] === '/'){
                         $model->routes[$name] = $name;
+                    }elseif(substr($name,0,8) === 'platform'){
+                        $model->platforms[$name] = $name;
                     }else{
                         $model->permissions   = $name;
                     }

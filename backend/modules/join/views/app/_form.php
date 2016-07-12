@@ -21,8 +21,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'cp_id')->dropDownList(\yii\helpers\ArrayHelper::map(\common\models\Cp::find()->all(),'id','cp_name')) ?>
 
     <?= $form->field($model, 'active')->dropDownList([
-        0=>'激活',
-        1=>'不激活'
+        1=>'激活',
+        0=>'不激活'
     ]) ?>
     <?= $form->field($model, 'api_url')->textInput(['maxlength' => true]) ?>
     <div class="form-group">

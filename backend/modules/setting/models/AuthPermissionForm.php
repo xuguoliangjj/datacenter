@@ -14,6 +14,7 @@ class AuthPermissionForm extends Model
     public $routes;
     public $permissions;
     public $app;
+    public $platforms;
 
     public function rules()
     {
@@ -25,7 +26,7 @@ class AuthPermissionForm extends Model
     public function scenarios()
     {
         return [
-            'auth'=>['routes','permissions','app']
+            'auth'=>['routes','permissions','app','platforms']
         ];
     }
 
@@ -34,7 +35,8 @@ class AuthPermissionForm extends Model
         return [
             'routes'=>'路由',
             'permissions'=>'权限',
-            'app'=>'游戏'
+            'app'=>'游戏',
+            'platforms'=>'地区'
         ];
     }
 }
