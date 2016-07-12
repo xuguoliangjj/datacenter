@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\wjj\controllers;
+namespace frontend\modules\slg\controllers;
 
 use Yii;
 use yii\filters\auth\CompositeAuth;
@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class AvpController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Avp';
+    public $modelClass = 'frontend\modules\slg\models\Avp';
     /**
      * @inheritdoc
      */

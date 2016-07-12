@@ -1,7 +1,8 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\modules\slg\models;
 
+use frontend\components\OfflineActiveRecord;
 use Yii;
 
 /**
@@ -17,7 +18,7 @@ use Yii;
  * @property integer $dau_npayp
  * @property string $ymd
  */
-class Dau extends \yii\db\ActiveRecord
+class Dau extends OfflineActiveRecord
 {
     /**
      * @inheritdoc

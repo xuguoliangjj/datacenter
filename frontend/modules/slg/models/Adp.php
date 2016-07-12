@@ -1,11 +1,15 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\modules\slg\models;
 
+use frontend\components\OfflineActiveRecord;
 use Yii;
+use yii\helpers\Url;
+use yii\web\Link;
+use yii\web\Linkable;
 
 /**
- * This is the model class for table "{{%avp}}".
+ * This is the model class for table "adp".
  *
  * @property integer $id
  * @property string $platform
@@ -14,14 +18,15 @@ use Yii;
  * @property integer $player_num
  * @property string $ymd
  */
-class Avp extends \yii\db\ActiveRecord
+class Adp extends OfflineActiveRecord
 {
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%avp}}';
+        return 'adp';
     }
 
     /**
@@ -34,7 +39,7 @@ class Avp extends \yii\db\ActiveRecord
             [['player_num'], 'integer'],
             [['platform', 'channel', 'server'], 'string', 'max' => 64],
             [['ymd'], 'string', 'max' => 10],
-            [['platform', 'channel', 'server', 'player_num', 'ymd'], 'unique', 'targetAttribute' => ['platform', 'channel', 'server', 'player_num', 'ymd'], 'message' => 'The combination of 平台标示, 渠道标示, 服务器标示, 新增玩家数 and 激活日期 has already been taken.']
+            [['platform', 'channel', 'server', 'player_num', 'ymd'], 'unique', 'targetAttribute' => ['platform', 'channel', 'server', 'player_num', 'ymd'], 'message' => 'The combination of 平台标示, 渠道标示, 服务器标示, 新增玩家数 and 新增日期 has already been taken.']
         ];
     }
 
@@ -49,7 +54,20 @@ class Avp extends \yii\db\ActiveRecord
             'channel' => Yii::t('app', '渠道标示'),
             'server' => Yii::t('app', '服务器标示'),
             'player_num' => Yii::t('app', '新增玩家数'),
-            'ymd' => Yii::t('app', '激活日期'),
+            'ymd' => Yii::t('app', '新增日期'),
         ];
+    }
+
+    public function fields()
+    {
+        return [
+            'ymd',
+            'player_num'
+        ];
+    }
+
+    public function extraFields()
+    {
+        return ['id'];
     }
 }

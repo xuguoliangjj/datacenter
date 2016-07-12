@@ -12,8 +12,8 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'modules'=>[
-        'wjj' => [
-            'class' => 'frontend\modules\wjj\wjjModule'
+        'slg' => [
+            'class' => 'frontend\modules\slg\Module'
         ]
     ],
     'components' => [
@@ -32,17 +32,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName'  => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/adp'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/avp'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'wjj/dau'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/adp'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/avp'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/dau'],
             ],
-        ],
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=115.28.39.138;dbname=wjj',
-            'username' => 'xuguoliang',
-            'password' => 'xuguoliang!@#',
-            'charset' => 'utf8',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\wjj\controllers;
+namespace frontend\modules\slg\controllers;
 
 class WauController extends \yii\rest\ActiveController
 {

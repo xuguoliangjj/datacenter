@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\wjj\controllers;
+namespace frontend\modules\slg\controllers;
 
 use Yii;
 use yii\filters\auth\CompositeAuth;
@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class AdpController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Adp';
+    public $modelClass = 'frontend\modules\slg\models\Adp';
     /**
      * @inheritdoc
      */

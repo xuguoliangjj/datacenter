@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\wjj\controllers;
+namespace frontend\modules\slg\controllers;
 
 use Yii;
 use yii\filters\auth\CompositeAuth;
@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class DauController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Dau';
+    public $modelClass = 'frontend\modules\slg\models\Dau';
     /**
      * @inheritdoc
      */
