@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
-class OnlminController extends ActiveController
+class OnlController extends ActiveController
 {
     public $modelClass = 'frontend\modules\slg\models\Avp';
     /**
