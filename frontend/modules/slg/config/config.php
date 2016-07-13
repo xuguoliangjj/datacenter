@@ -8,16 +8,16 @@
 return [
     'runtimeDb' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=127.0.0.1;dbname=slg',
-        'username' => 'root',
-        'password' => '',
-        'charset' => 'utf8',
+        'dsn' => 'mysql:host=125.94.214.77;dbname=slg',
+        'username' => 'xuguoliang',
+        'password' => 'xuguoliang',
+        'charset'  => 'utf8',
     ],
     'offlineDb' => [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=127.0.0.1;dbname=slg-offline',
-        'username' => 'root',
-        'password' => '',
+        'dsn' => 'mysql:host=115.28.39.138;dbname=wjj',
+        'username' => 'xuguoliang',
+        'password' => 'xuguoliang!@#',
         'charset' => 'utf8',
     ]
 ];

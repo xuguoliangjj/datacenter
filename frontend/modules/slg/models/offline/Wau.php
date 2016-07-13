@@ -1,31 +1,27 @@
 <?php
 
-namespace frontend\modules\slg\models;
+namespace frontend\modules\slg\models\offline;
 
-use frontend\components\OfflineActiveRecord;
 use Yii;
 
 /**
- * This is the model class for table "{{%dau}}".
+ * This is the model class for table "{{%wau}}".
  *
  * @property integer $id
  * @property string $platform
  * @property string $channel
  * @property string $server
- * @property integer $dau
- * @property integer $dau_adp
- * @property integer $dau_payp
- * @property integer $dau_npayp
+ * @property integer $wau
  * @property string $ymd
  */
-class Dau extends OfflineActiveRecord
+class Wau extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%dau}}';
+        return '{{%wau}}';
     }
 
     /**
@@ -34,8 +30,8 @@ class Dau extends OfflineActiveRecord
     public function rules()
     {
         return [
-            [['platform', 'channel', 'server', 'dau', 'dau_adp', 'dau_payp', 'dau_npayp', 'ymd'], 'required'],
-            [['dau', 'dau_adp', 'dau_payp', 'dau_npayp'], 'integer'],
+            [['platform', 'channel', 'server', 'wau', 'ymd'], 'required'],
+            [['wau'], 'integer'],
             [['platform', 'channel', 'server'], 'string', 'max' => 64],
             [['ymd'], 'string', 'max' => 10],
             [['platform', 'channel', 'server', 'ymd'], 'unique', 'targetAttribute' => ['platform', 'channel', 'server', 'ymd'], 'message' => 'The combination of 平台标示, 渠道标示, 服务器标示 and 激活日期 has already been taken.']
@@ -52,10 +48,7 @@ class Dau extends OfflineActiveRecord
             'platform' => Yii::t('app', '平台标示'),
             'channel' => Yii::t('app', '渠道标示'),
             'server' => Yii::t('app', '服务器标示'),
-            'dau' => Yii::t('app', '日活跃玩家数量'),
-            'dau_adp' => Yii::t('app', '日活跃玩家中的新增玩家数量'),
-            'dau_payp' => Yii::t('app', '日活跃玩家中的付费玩家数量'),
-            'dau_npayp' => Yii::t('app', '日活跃玩家中的非付费玩家数量'),
+            'wau' => Yii::t('app', '周活跃玩家数量'),
             'ymd' => Yii::t('app', '激活日期'),
         ];
     }

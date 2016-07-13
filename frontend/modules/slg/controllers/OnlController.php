@@ -17,7 +17,8 @@ use yii\web\Response;
 
 class OnlController extends ActiveController
 {
-    public $modelClass = 'frontend\modules\slg\models\Avp';
+    public $modelClass = 'frontend\modules\slg\models\runtime\Online';
+
     /**
      * @inheritdoc
      */
@@ -51,19 +52,24 @@ class OnlController extends ActiveController
     public function actions()
     {
         return [
-            'index' => [
-                'class' => 'restAction\avp\IndexAction',
+            'minute' => [
+                'class' => 'restAction\onl\MinuteAction',
                 'modelClass'  => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
-            'view' => [
-                'class' => 'restAction\avp\ViewAction',
+            'hour' => [
+                'class' => 'restAction\onl\HourAction',
+                'modelClass'  => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+            'day' => [
+                'class' => 'restAction\onl\DayAction',
                 'modelClass'  => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
             ],
             'options' => [
                 'class' => 'yii\rest\OptionsAction',
-            ],
+            ]
         ];
     }
 }

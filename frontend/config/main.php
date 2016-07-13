@@ -35,6 +35,7 @@ return [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/adp'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/avp'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/dau'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'slg/onl'],
             ],
         ],
         'log' => [

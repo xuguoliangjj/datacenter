@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class AvpController extends ActiveController
 {
-    public $modelClass = 'frontend\modules\slg\models\Avp';
+    public $modelClass = 'frontend\modules\slg\models\offline\Avp';
     /**
      * @inheritdoc
      */

@@ -89,7 +89,7 @@ $(function(){
         $.fn.ajaxList.onlday = $.ajax({
             type:"post",
             data:params,
-            url:requestList.onlhou,
+            url:requestList.onlday,
             beforeSend:function(){
                 $("#onlday .loading").remove();
                 g.loading("onlday-chart");
@@ -103,7 +103,7 @@ $(function(){
                         text: '实时在线-按天'
                     },
                     subtitle: {
-                        text: '最高在线：22121'
+                        text: json.subtitle
                     },
                     xAxis: {
                         type: 'datetime',
@@ -130,15 +130,15 @@ $(function(){
                             type: 'spline',
                             name: 'ACU',
                             pointInterval: 60 * 1000 * 60 * 24,
-                            pointStart: Date.UTC(2016, 03, 14),
-                            data:json
+                            pointStart: Date.UTC(json.year, json.month - 1, json.day),
+                            data:json.acu
                         },
                         {
                             type: 'spline',
                             name: 'PCU',
                             pointInterval: 60 * 1000 * 60 * 24,
-                            pointStart: Date.UTC(2016, 03, 14),
-                            data:json
+                            pointStart: Date.UTC(json.year, json.month - 1, json.day),
+                            data:json.pcu
                         }
                     ]
                 });
@@ -186,7 +186,7 @@ $(function(){
                         text: '实时在线-小时'
                     },
                     subtitle: {
-                        text: '最高在线：22121'
+                        text: json.subtitle
                     },
                     xAxis: {
                         type: 'datetime',
@@ -212,8 +212,8 @@ $(function(){
                             type: 'spline',
                             name: '玩家数',
                             pointInterval: 60 * 1000 * 60,
-                            pointStart: Date.UTC(2016, 03, 14),
-                            data:json
+                            pointStart: Date.UTC(json.year, json.month - 1, json.day),
+                            data:json.data
                         }
                     ]
                 });
@@ -262,7 +262,7 @@ $(function(){
                         text: '实时在线-分钟'
                     },
                     subtitle: {
-                        text: '最高在线：22121 当前在线：17832'
+                        text: json.subtitle
                     },
                     xAxis: {
                         type: 'datetime',
@@ -313,8 +313,8 @@ $(function(){
                             type: 'area',
                             name: '玩家数',
                             pointInterval: 60 * 1000,
-                            pointStart: Date.UTC(2016, 03, 14),
-                            data:json
+                            pointStart: Date.UTC(json.year, json.month - 1, json.day),
+                            data:json.data
                         }
                     ]
                 });

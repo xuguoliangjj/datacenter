@@ -18,7 +18,7 @@ return [
                 ]],
                 ['icon'=>'glyphicon glyphicon-time','label' => '实时分析','items' => [
                     ['label' => '实时在线', 'url' => ['/main/online']],
-                    ['label' => '实时登录', 'url' => ['/product/index4']],
+                    ['label' => '实时登录', 'url' => ['/main/login']],
                 ]],
                 ['icon'=>'glyphicon glyphicon-yen','label' => '付费分析','items' => [
                     ['label' => '充值统计', 'url' => ['/site/indsex']],

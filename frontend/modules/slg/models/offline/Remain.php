@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\modules\slg\models;
+namespace frontend\modules\slg\models\offline;
 
 use Yii;
 

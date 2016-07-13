@@ -15,7 +15,8 @@ use yii\web\Response;
  */
 class SiteController extends ActiveController
 {
-    public $modelClass = 'frontend\models\Adp';
+    public $modelClass = 'frontend\modules\slg\models\offline\Adp';
+
     /**
      * @inheritdoc
      */
@@ -42,8 +43,23 @@ class SiteController extends ActiveController
         ];
     }
 
-    public function actionIndex()
+    /**
+     * @inheritdoc
+     */
+    public function actions()
     {
-        return array(1111);
+        return [
+            'index' => [
+                'class' => 'restAction\adp\IndexAction',
+                'modelClass'  => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+            ],
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'options' => [
+                'class' => 'yii\rest\OptionsAction',
+            ]
+        ];
     }
 }

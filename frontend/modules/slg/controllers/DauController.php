@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class DauController extends ActiveController
 {
-    public $modelClass = 'frontend\modules\slg\models\Dau';
+    public $modelClass = 'frontend\modules\slg\models\offline\Dau';
     /**
      * @inheritdoc
      */

@@ -16,7 +16,7 @@ use yii\web\Response;
  */
 class AdpController extends ActiveController
 {
-    public $modelClass = 'frontend\modules\slg\models\Adp';
+    public $modelClass = 'frontend\modules\slg\models\offline\Adp';
     /**
      * @inheritdoc
      */
