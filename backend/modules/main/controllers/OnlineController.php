@@ -2,6 +2,7 @@
 
 namespace backend\modules\main\controllers;
 
+use backend\assets\AppAsset;
 use backend\components\BaseController;
 use backend\components\Curl;
 use yii\helpers\Json;
@@ -10,6 +11,12 @@ use Yii;
 
 class OnlineController extends BaseController
 {
+    public function init()
+    {
+        parent::init();
+        \Yii::$app->view->registerJsFile('/js/app/online.js',['depends'=>[AppAsset::className()]]);
+    }
+
     public function actionIndex()
     {
         return $this->render('index');

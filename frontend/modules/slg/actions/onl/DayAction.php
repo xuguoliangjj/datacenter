@@ -57,14 +57,14 @@ class DayAction extends Action
         $modelClass = $this->modelClass;
         $query      = $modelClass::find();
         $query -> select = [
-            'FROM_UNIXTIME(logTime,"%Y%d%m") as ymd',
+            'FROM_UNIXTIME(logTime,"%Y%m%d") as ymd',
             'AVG(onlineNum) as acu',
             'MAX(onlineNum) as pcu'
         ];
 
-        $query -> andWhere(['>=','FROM_UNIXTIME("%Y%m%d",logTime)',$starttime]);
-        $query -> andWhere(['<=','FROM_UNIXTIME("%Y%m%d",logTime)',$endtime]);
-        $query -> andFilterWhere(['FROM_UNIXTIME(logTime,"%Y-%d-%m")'  => $endtime]);
+        $query -> andWhere(['>=','FROM_UNIXTIME("%Y-%m-%d",logTime)',$starttime]);
+        $query -> andWhere(['<=','FROM_UNIXTIME("%Y-%m-%d",logTime)',$endtime]);
+        $query -> andFilterWhere(['FROM_UNIXTIME(logTime,"%Y%m%d")'  => $endtime]);
         $query -> andFilterWhere(['channel'  => $channel]);
         $query -> andFilterWhere(['platform' => $platform]);
         $query -> andFilterWhere(['serverId' => $server]);

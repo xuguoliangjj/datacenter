@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
 </div>
 <div class="panel panel-default own-panel">
     <div class="panel-heading">
-        实时在线
+        实时登录
         <span class="pull-right own-toggle">
             <a class="glyphicon glyphicon-chevron-up"></a>
         </span>

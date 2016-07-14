@@ -9,11 +9,6 @@ $(function(){
     var Graphic = function(){
 
     };
-    Graphic.prototype.loading = function(id){
-        $("#"+id).append('<center class="loading" style="margin-top: 200px;text-align: center;">' +
-            '<i class="fa fa-refresh fa-spin fa-2x fa-fw margin-bottom"></i><br>' +
-            '<span>正在加载，请稍后...</span></center>');
-    };
     Graphic.prototype.registerListen = function(){
         $("#loginmin").on('refresh.chart',function(){
             var t = new Graphic();
@@ -23,14 +18,14 @@ $(function(){
     },
     Graphic.prototype.refresh_loginmin_player = function(params){
         var g = this;
-        if($.fn.ajaxList.onlmin) $.fn.ajaxList.onlmin.abort();
-        $.fn.ajaxList.onlmin = $.ajax({
+        if($.fn.ajaxList.loginmin) $.fn.ajaxList.loginmin.abort();
+        $.fn.ajaxList.loginmin = $.ajax({
             type:"post",
             data:params,
-            url:requestList.onlmin,
+            url:requestList.loginmin,
             beforeSend:function(){
                 $("#loginmin .loading").remove();
-                g.loading("loginmin-chart");
+                $.loading("loginmin-chart");
             },
             complete:function(){
                 $("#loginmin .loading").remove();
@@ -41,7 +36,7 @@ $(function(){
                         zoomType: 'x'
                     },
                     title: {
-                        text: '实时在线-分钟'
+                        text: '实时登录-分钟'
                     },
                     subtitle: {
                         text: json.subtitle
@@ -53,13 +48,13 @@ $(function(){
                         },
                         labels: {
                             formatter: function() {
-                                return  Highcharts.dateFormat('%H:%M:%S', this.value);
+                                return  Highcharts.dateFormat('%H:%M', this.value);
                             }
                         }
                     },
                     yAxis: {
                         title: {
-                            text: '玩家人数'
+                            text: '登录次数'
                         }
                     },
                     tooltip: {
@@ -93,22 +88,22 @@ $(function(){
                     series: [
                         {
                             type: 'area',
-                            name: '玩家数',
+                            name: '登录次数',
                             pointInterval: 60 * 1000,
                             pointStart: Date.UTC(json.year, json.month - 1, json.day),
                             data:json.data
                         }
                     ]
                 });
-                $('#onlmin-table').DataTable({
+                $('#loginmin-table').DataTable({
                     data: (function(){
-                        var series = $('#onlmin-chart').highcharts().series[0];
+                        var series = $('#loginmin-chart').highcharts().series[0];
                         var data = [];
                         for(var i=0; i<series.data.length; i++ )
                         {
                             var datetime = series.data[i].x;
                             data[i] = [
-                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', datetime),
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M', datetime),
                                 series.data[i].y
                             ]
                         }
@@ -116,7 +111,7 @@ $(function(){
                     })(),
                     columns: [
                         { title: "时间" },
-                        { title: "在线人数" }
+                        { title: "登录次数" }
                     ]
                 });
             }

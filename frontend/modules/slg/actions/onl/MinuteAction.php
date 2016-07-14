@@ -57,10 +57,11 @@ class MinuteAction extends Action
         $modelClass = $this->modelClass;
         $query      = $modelClass::find();
         $query -> select = [
-            'FROM_UNIXTIME(logTime,"%Y-%d-%m %H:%i:%s") as time',
+            'FROM_UNIXTIME(logTime,"%Y-%m-%d %H:%i") as time',
             'SUM(onlineNum) as onlineNum'
         ];
-        $query -> andFilterWhere(['FROM_UNIXTIME(logTime,"%Y%d%m")'  => $endtime]);
+
+        $query -> andFilterWhere(['FROM_UNIXTIME(logTime,"%Y%m%d")'  => $endtime]);
         $query -> andFilterWhere(['channel'  => $channel]);
         $query -> andFilterWhere(['platform' => $platform]);
         $query -> andFilterWhere(['serverId'   => $server]);
@@ -70,6 +71,7 @@ class MinuteAction extends Action
         ]);
 
         $resultData = $query -> asArray() -> all();
+
         $rawData    = ArrayHelper::map($resultData,'time','onlineNum');
         $data    = Tools::fixStepMinute($rawData);
         return array_values($data);

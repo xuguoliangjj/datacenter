@@ -9,6 +9,11 @@ $.extend({
             $(item).tab('show').trigger('show.bs.tab');
         });
     },
+    loading:function(id){
+        $("#"+id).append('<center class="loading" style="margin-top: 200px;text-align: center;">' +
+            '<i class="fa fa-refresh fa-spin fa-2x fa-fw margin-bottom"></i><br>' +
+            '<span>正在加载，请稍后...</span></center>');
+    },
     buildParams:function(){
         var startStr       = $("#own-date-start").text();
         var endStr         = $("#own-date-end").text();

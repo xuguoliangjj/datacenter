@@ -5,7 +5,7 @@
  * Date: 2016/3/7
  * Time: 14:51
  */
-namespace restAction\onl;
+namespace restAction\login;
 
 use frontend\components\Tools;
 use Yii;
@@ -13,7 +13,7 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\rest\Action;
 
-class HourAction extends Action
+class MinuteAction extends Action
 {
     /**
      * @var callable a PHP callable that will be called to prepare a data provider that
@@ -57,21 +57,21 @@ class HourAction extends Action
         $modelClass = $this->modelClass;
         $query      = $modelClass::find();
         $query -> select = [
-            'FROM_UNIXTIME(logTime,"%k") as hour',
-            'AVG(onlineNum) as onlineNum'
+            'FROM_UNIXTIME(logTime,"%Y-%m-%d %H:%i") as time',
+            'COUNT(1) as loginTimes'
         ];
         $query -> andFilterWhere(['FROM_UNIXTIME(logTime,"%Y%m%d")'  => $endtime]);
         $query -> andFilterWhere(['channel'  => $channel]);
         $query -> andFilterWhere(['platform' => $platform]);
         $query -> andFilterWhere(['serverId'   => $server]);
-        $query -> groupBy('hour');
+        $query -> groupBy('time');
         $query -> orderBy([
-            'hour' => SORT_ASC
+            'time' => SORT_ASC
         ]);
 
         $resultData = $query -> asArray() -> all();
-        $rawData    = ArrayHelper::map($resultData,'hour','onlineNum');
-        $data       = Tools::fixStepHour($rawData);
+        $rawData    = ArrayHelper::map($resultData,'time','loginTimes');
+        $data       = Tools::fixStepMinute(Tools::fixedArrayToInterger($rawData));
         return array_values($data);
     }
 }
